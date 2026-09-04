@@ -284,6 +284,7 @@ textarea {
 }
 
 .live-wishes-container {
+    ont-family: 'bohemian', cursive;
     background-color: #ffffff;
     padding: 25px 20px;
     margin: 20px auto;
@@ -294,6 +295,7 @@ textarea {
 }
 
 .live-wishes-container h4 {
+    ont-family: 'bohemian', cursive;
     text-align: center;
     color: #b39258;
     margin-top: 0;
