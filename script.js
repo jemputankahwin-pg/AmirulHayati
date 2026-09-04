@@ -5,6 +5,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const lagu = document.getElementById('bgMusic');
     const butangLagu = document.getElementById('musicToggleBtn');
 
+
     // 1. LOGIK LOG MASUK / BUKA PINTU DEPAN
      if (btnBuka && pintu) {
         btnBuka.addEventListener('click', function() {
@@ -61,38 +62,81 @@ const pemasa = setInterval(function() {
 // 2. BORANG RSVP PENGHANTARAN MOCK
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHftf0idOHWFcXVOPDmiwRt8eSPTFmhZ3xdRU0tK4-dvI6It9YbDpSSVNE1HwjSw/exec";
 
-// 1. PENGENDALI BORANG RSVP
-document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const feedback = document.getElementById('rsvpFeedback');
-    feedback.style.color = "#333";
-    feedback.innerHTML = "Sedang menghantar RSVP...";
+    // 📍 1. TETAPAN TARIKH TUTUP RSVP (13 Mac 2027)
+    // Kita tetapkan masa tamat tepat pada pukul 11:59:59 Malam
+    const tarikTutupRSVP = new Date("March 13, 2027 23:59:59".getTime);
+    const masaKini = new Date().getTime();
 
-    const dataPayload = {
-        formType: "rsvp",
-        nama: document.getElementById('rsvpNama').value,
-        kehadiran: document.getElementById('rsvpStatus').value,
-        pax: document.getElementById('rsvpPax').value || 0
-    };
+    const borangRSVP = document.getElementById('rsvpForm');
+    const maklumbalasRSVP = document.getElementById('rsvpFeedback');
 
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dataPayload)
-    })
-    .then(() => {
-        feedback.style.color = "#2e7d32";
-        feedback.innerHTML = "RSVP anda telah berjaya dihantar! Terima Kasih! ✨";
-        document.getElementById('rsvpForm').reset();
-    })
-    .catch(error => {
-        feedback.style.color = "#c62828";
-        feedback.innerHTML = "Ralat berlaku. Sila cuba lagi.";
-        console.error('Error:', error);
-    });
-});
+     // Cari semua elemen input di dalam borang untuk fungsi menyekat (disable)
+     const elemenInput = borangRSVP ? borangRSVP.querySelectorAll('input, select, button') : [];
+
+     // 📍 2. SEMAKAN AUTOMATIK SEBAIK SAHAJA WEB DIBUKA
+    if (masaKini > tarikhTutupRSVP) {
+        if (maklumbalasRSVP) {
+            maklumbalasRSVP.style.color = "#c62828"; // Warna merah ralat
+            maklumbalasRSVP.innerHTML = "🔒 Maaf, tarikh tutup pengisian RSVP telah tamat pada 13 Mac 2027.";
+        }
+        
+        // Menghalang tetamu daripada menaip atau klik elemen borang
+        elemenInput.forEach(elemen => {
+            elemen.disabled = true;
+            if (elemen.tagName === 'BUTTON') {
+                elemen.innerHTML = "RSVP Ditutup";
+                elemen.style.backgroundColor = "#888888"; // Tukar butang jadi warna kelabu mati
+                elemen.style.cursor = "not-allowed";
+            }
+        });
+    }
+
+    // 📍 3. LOGIK PENGHANTARAN BORANG RSVP (DENGAN PERLINDUNGAN EKSTRA)
+    if (borangRSVP) {
+        borangRSVP.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Semakan sekali lagi semasa butang ditekan (untuk keselamatan)
+            const masaKlik = new Date().getTime();
+            if (masaKlik > tarikhTutupRSVP) {
+                maklumbalasRSVP.style.color = "#c62828";
+                maklumbalasRSVP.innerHTML = "🔒 Gagal menghantar. Tarikh mengisi RSVP telah pun ditutup.";
+                return; // Menghentikan koding daripada terus menghantar data ke Google Sheets
+            }
+
+            // --- KOD ASAL HANTAR KE GOOGLE SHEETS ANDA BERMULA DI SINI ---
+            maklumbalasRSVP.style.color = "#333";
+            maklumbalasRSVP.innerHTML = "Sedang menghantar RSVP...";
+
+            const dataPayload = {
+                formType: "rsvp",
+                nama: document.getElementById('rsvpNama').value,
+                kehadiran: document.getElementById('rsvpStatus').value,
+                pax: document.getElementById('rsvpPax').value || 0
+            };
+
+            // GOOGLE_SCRIPT_URL merujuk kepada pemboleh ubah URL Google Sheets anda
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataPayload)
+            })
+            .then(() => {
+                maklumbalasRSVP.style.color = "#2e7d32";
+                maklumbalasRSVP.innerHTML = "RSVP anda telah berjaya dihantar! ✨";
+                borangRSVP.reset();
+            })
+            .catch(error => {
+                maklumbalasRSVP.style.color = "#c62828";
+                maklumbalasRSVP.innerHTML = "Ralat berlaku. Sila cuba lagi.";
+                console.error('Error:', error);
+            });
+            // --- KOD ASAL HANTAR KE GOOGLE SHEETS TAMAT DI SINI ---
+        });
+    }
+
+
 
 // 2. PENGENDALI BORANG UCAPAN
 document.getElementById('wishesForm').addEventListener('submit', function(e) {
@@ -190,20 +234,6 @@ rsvpPaxInput.addEventListener('input', function() {
 });
 
 const lagu = document.getElementById('bgMusic');
-const butangLagu = document.getElementById('musicToggleBtn');
-
-// Fungsi mengawal pasang/tutup muzik
-butangLagu.addEventListener('click', function() {
-    if (lagu.paused) {
-        lagu.play();
-        butangLagu.innerHTML = "🎶"; // Tukar ikon kepada nota muzik aktif
-        butangLagu.classList.add('music-playing'); // Aktifkan animasi berputar
-    } else {
-        lagu.pause();
-        butangLagu.innerHTML = "🔇"; // Tukar ikon kepada senap/mute
-        butangLagu.classList.remove('music-playing'); // Hentikan animasi berputar
-    }
-});
 
 // Automatik mainkan muzik sebaik sahaja tetamu mula skrol skrin (Sistem pintas sekat autoplay browser)
 window.addEventListener('scroll', function() {
@@ -215,4 +245,4 @@ window.addEventListener('scroll', function() {
         console.log("Autoplay disekat, tetamu perlu klik butang manual.");
     });
 }, { once: true }); // Fungsi skrol ini hanya berjalan sekali sahaja
-
+ 
