@@ -133,19 +133,59 @@
         </div>
     </div>
 
-    <!-- Menu Terapung Bahagia Bawah (Sticky Bottom Navigation) -->
+   <!-- KEMASKINI NAVIGASI BAWAAH ANDA -->
     <div class="bottom-nav">
         <a href="https://ul.waze.com/ul?place=ChIJU5Txlv1B2jERefTqDxgETMw&ll=1.48302120%2C103.93889270&navigate=yes" target="_blank" class="nav-item waze-color">📍 Waze</a>
         <a href="https://maps.app.goo.gl/hWxqCK6g2WNbJKLEA" target="_blank" class="nav-item google-color">🗺️ Maps</a>
-        <a href="https://wa.me" target="_blank" class="nav-item whatsapp-color">💬 Hubungi</a>
+       
+        <!-- 📍 TAMBAH KOD ONCLICK LANGSUNG INI -->
+    <a href="javascript:void(0);" class="nav-item whatsapp-color" onclick="document.getElementById('popupHubungi').style.display='flex'">💬 Hubungi</a>
+
+</div>
+        <!-- 📍 KOD BAHARU: KOTAK POP-UP HUBUNGI KALIS RALAT -->
+    <div id="popupHubungi" class="popup-modal-overlay" onclick="if(event.target === this) this.style.display='none'">
+    
+        <div class="popup-modal-content">
+            <!-- Butang Pangkah (X) -->
+            <span class="popup-close-btn" onclick="document.getElementById('popupHubungi').style.display='none'">&times;</span>
+            <br>
+            <div class="contact-list">
+                <!-- Orang Pertama: Amir -->
+                <div class="contact-card">
+                    <div class="contact-info">
+                        <strong>Amir</strong>
+                        <p>Abang Pengantin Perempuan</p>
+                    </div>
+                    <div class="contact-actions">
+                        <a href="https://wa.me/601139399562" target="_blank" class="action-btn wa-full">💬 Hubungi via WhatsApp</a>
+                    </div>
+                </div>
+
+                <!-- Orang Kedua: Qayum -->
+                <div class="contact-card">
+                    <div class="contact-info">
+                        <br>
+                        <strong>Qayum</strong>
+                        <p>Adik Pengantin Perempuan</p>
+                    </div>
+                    <div class="contact-actions">
+                        <a href="https://wa.me/60187809420" target="_blank" class="action-btn wa-full">💬 Hubungi via WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
 
     <!-- Elemen Audio & Butang Lagu Terapung -->
     <audio id="bgMusic" loop>
         <source src="Call of Silence x Akuma No Ko (orchestral).mp3" type="audio/mp3">
     </audio>
-    <button id="musicToggleBtn" class="floating-music-btn">🎵</button>
-
+    <!-- Butang Muzik Kalis Ralat menggunakan arahan terus Onclick HTML -->
+<button id="musicToggleBtn" class="floating-music-btn" onclick="var lagu = document.getElementById('bgMusic'); if(lagu.paused) { lagu.play(); this.innerHTML = '🎶'; this.classList.add('music-playing'); } else { lagu.pause(); this.innerHTML = '🔇'; this.classList.remove('music-playing'); }">
+    🎵
+</button>
     <script src="script.js"></script>
 </body>
 </html>
