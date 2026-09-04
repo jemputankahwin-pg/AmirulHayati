@@ -9,6 +9,13 @@
 }
 
 @font-face {
+    font-family: 'bohemian';
+    src: url('Bohemian\ Soul.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Strong';
     src: url('Strong.ttf') format('truetype');
     font-weight: normal;
@@ -98,6 +105,7 @@ body {
 
 /* KANDUNGAN KOTAK PUTIH DI DALAM PINTU DEPAN */
 .pintu-content {
+    font-family: 'bohemian', cursive;
     background: #ffffff;
     color: #333;
     padding: 40px 30px;
@@ -121,7 +129,7 @@ body {
 
 /* Gaya Teks & Tajuk */
 .arabic-text {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #8c764d;
     margin-bottom: 10px;
 }
@@ -142,21 +150,22 @@ body {
 
 /* Perenggan & Puisi */
 .invitation-text {
-    font-family: 'Tulisan parents', cursive;
-    font-size: 0.95rem;
+    font-family: 'bohemian', cursive;
+    font-size: 0.8rem;
     line-height: 1.6;
     color: #444;
 }
 
 .parents {
     font-family: 'strong', cursive;
-    font-size: 2.0rem;
+    font-size: 1.6rem;
     color: #0c251e;
     margin: 20px 0;
 }
 
 /* Kotak Info Majlis */
 .info-box {
+    font-family: 'bohemian', cursive;
     background-color: #faf8f5;
     border: 1px dashed #d9cfbe;
     border-radius: 8px;
@@ -167,6 +176,7 @@ body {
 }
 
 .info-box h3 {
+    font-family: 'bohemian', cursive;
     font-size: 0.9rem;
     letter-spacing: 1px;
     color: #b39258;
@@ -174,13 +184,21 @@ body {
 }
 
 .highlight-text {
+    font-family: 'bohemian', cursive;
     font-weight: 700;
     color: #222;
     font-size: 1.1rem;
 }
 
+.ayat-countdown{
+    font-family: 'bohemian', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
 /* Kiraan Detik */
 .countdown-timer {
+    font-family: 'bohemian', cursive;
     font-size: 1.3rem;
     font-weight: 700;
     color: #ffffff;
@@ -194,6 +212,7 @@ body {
 
 /* Borang RSVP */
 .rsvp-section, .wishes-section {
+    font-family: 'bohemian', cursive;
     background-color: #ffffff;
     padding: 30px 20px;
     margin: 20px auto;
@@ -216,7 +235,7 @@ input, select, textarea {
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'bohemian', cursive;
     font-size: 0.95rem;
 }
 
@@ -225,6 +244,7 @@ textarea {
 }
 
 .btn-primary {
+    font-family: 'bohemian', cursive;
     background-color: #b39258; /* Warna tema emas emas */
     color: white;
     border: none;
@@ -241,6 +261,7 @@ textarea {
 }
 
 .feedback-msg {
+    font-family: 'bohemian', cursive;
     margin-top: 10px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -252,6 +273,7 @@ textarea {
     border: none;
     padding: 14px;
     border-radius: 6px;
+    font-family: 'bohemian', cursive;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
@@ -294,6 +316,7 @@ textarea {
 
 .wish-card strong {
     display: block;
+    font-family: 'bohemian', cursive;
     font-size: 0.95rem;
     color: #333;
     margin-bottom: 4px;
@@ -301,15 +324,23 @@ textarea {
 
 .wish-card p {
     margin: 0;
+    font-family: 'bohemian', cursive;
     font-size: 0.9rem;
     color: #555;
     line-height: 1.4;
 }
 
 .loading-text {
+    font-family: 'bohemian', cursive;
     text-align: center;
     font-style: italic;
     color: #888;
+}
+
+.footer-credit{
+    font-family: 'bohemian', cursive;
+    text-align: center;
+    color: #222;
 }
 
 /* Bar Menu Terapung (Sticky Bottom Nav) */
@@ -330,6 +361,7 @@ textarea {
 
 .nav-item {
     text-decoration: none;
+    font-family: 'bohemian', cursive;
     font-size: 0.85rem;
     font-weight: 600;
     color: #333;
@@ -349,6 +381,7 @@ textarea {
     background-color: #2e7d32;    /* Warna hijau rasmi WhatsApp */
     color: white;
     text-decoration: none;
+    font-family: 'bohemian', cursive;
     font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
@@ -440,6 +473,7 @@ textarea {
     background-color: #b39258; /* Warna emas sepadan dengan tema majlis */
     color: white;
     border: none;
+    font-family: 'bohemian', cursive;
     font-size: 1.4rem;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
