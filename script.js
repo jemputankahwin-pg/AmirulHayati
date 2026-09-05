@@ -89,74 +89,101 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHftf0idOHWF
     const tarikTutupRSVP = new Date("March 13, 2027 23:59:59".getTime);
     const masaKini = new Date().getTime();
 
-    const borangRSVP = document.getElementById('rsvpForm');
-    const maklumbalasRSVP = document.getElementById('rsvpFeedback');
+    // =========================================================
+// 1. PENGENDALI BORANG RSVP (KALIS MUAT SEMULA HALAMAN)
+// =========================================================
+const borangRSVP = document.getElementById('rsvpForm');
+const maklumbalasRSVP = document.getElementById('rsvpFeedback');
 
-     // Cari semua elemen input di dalam borang untuk fungsi menyekat (disable)
-     const elemenInput = borangRSVP ? borangRSVP.querySelectorAll('input, select, button') : [];
+if (borangRSVP) {
+    borangRSVP.addEventListener('submit', function(e) {
+        // 📍 KOD KUNCI: Menghalang browser daripada refresh halaman web!
+        e.preventDefault(); 
 
-     // 📍 2. SEMAKAN AUTOMATIK SEBAIK SAHAJA WEB DIBUKA
-    if (masaKini > tarikhTutupRSVP) {
-        if (maklumbalasRSVP) {
-            maklumbalasRSVP.style.color = "#c62828"; // Warna merah ralat
-            maklumbalasRSVP.innerHTML = "🔒 Maaf, tarikh tutup pengisian RSVP telah tamat pada 13 Mac 2027.";
-        }
-        
-        // Menghalang tetamu daripada menaip atau klik elemen borang
-        elemenInput.forEach(elemen => {
-            elemen.disabled = true;
-            if (elemen.tagName === 'BUTTON') {
-                elemen.innerHTML = "RSVP Ditutup";
-                elemen.style.backgroundColor = "#888888"; // Tukar butang jadi warna kelabu mati
-                elemen.style.cursor = "not-allowed";
-            }
+        maklumbalasRSVP.style.color = "#333";
+        maklumbalasRSVP.innerHTML = "Sedang menghantar RSVP...";
+
+        // Ambil data nilai daripada kotak input paparan baharu kita
+        const nilaiPax = document.getElementById('rsvpPax') ? document.getElementById('rsvpPax').value : 0;
+
+        const dataPayload = {
+            formType: "rsvp",
+            nama: document.getElementById('rsvpNama').value,
+            kehadiran: document.getElementById('rsvpStatus').value,
+            pax: nilaiPax
+        };
+
+        // Hantar data ke Google Sheets via Apps Script URL anda
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataPayload)
+        })
+        .then(() => {
+            maklumbalasRSVP.style.color = "#2e7d32";
+            maklumbalasRSVP.innerHTML = "RSVP anda telah berjaya dihantar! ✨";
+            
+            // 📍 PENTING: Hanya reset borang sahaja, jangan refresh page!
+            borangRSVP.reset(); 
+            
+            // Jika anda menggunakan kotak input text bertombol untuk Pax, set semula nilainya ke 0
+            if(document.getElementById('rsvpPax')) document.getElementById('rsvpPax').value = "0";
+        })
+        .catch(error => {
+            maklumbalasRSVP.style.color = "#c62828";
+            maklumbalasRSVP.innerHTML = "Ralat berlaku. Sila cuba lagi.";
+            console.error('Error:', error);
         });
-    }
+    });
+}
 
-    // 📍 3. LOGIK PENGHANTARAN BORANG RSVP (DENGAN PERLINDUNGAN EKSTRA)
-    if (borangRSVP) {
-        borangRSVP.addEventListener('submit', function(e) {
-            e.preventDefault();
+// =========================================================
+// 2. PENGENDALI BORANG UCAPAN (KALIS MUAT SEMULA HALAMAN)
+// =========================================================
+const borangUcapan = document.getElementById('wishesForm');
+const maklumbalasUcapan = document.getElementById('wishFeedback');
 
-            // Semakan sekali lagi semasa butang ditekan (untuk keselamatan)
-            const masaKlik = new Date().getTime();
-            if (masaKlik > tarikhTutupRSVP) {
-                maklumbalasRSVP.style.color = "#c62828";
-                maklumbalasRSVP.innerHTML = "🔒 Gagal menghantar. Tarikh mengisi RSVP telah pun ditutup.";
-                return; // Menghentikan koding daripada terus menghantar data ke Google Sheets
+if (borangUcapan) {
+    borangUcapan.addEventListener('submit', function(e) {
+        // 📍 KOD KUNCI: Menghalang browser daripada refresh halaman web!
+        e.preventDefault(); 
+
+        maklumbalasUcapan.style.color = "#333";
+        maklumbalasUcapan.innerHTML = "Sedang menghantar ucapan...";
+
+        const dataPayload = {
+            formType: "ucapan",
+            nama: document.getElementById('wishNama').value,
+            ucapan: document.getElementById('wishMesej').value
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataPayload)
+        })
+        .then(() => {
+            maklumbalasUcapan.style.color = "#2e7d32";
+            maklumbalasUcapan.innerHTML = "Ucapan anda selamat disimpan! Terima kasih. ❤️";
+            
+            // 📍 PENTING: Hanya reset borang sahaja, jangan refresh page!
+            borangUcapan.reset(); 
+            
+            // Memuatkan semula senarai ucapan di live feed jika ada fungsi tersebut
+            if (typeof muatTurunUcapan === "function") {
+                muatTurunUcapan();
             }
-
-            // --- KOD ASAL HANTAR KE GOOGLE SHEETS ANDA BERMULA DI SINI ---
-            maklumbalasRSVP.style.color = "#333";
-            maklumbalasRSVP.innerHTML = "Sedang menghantar RSVP...";
-
-            const dataPayload = {
-                formType: "rsvp",
-                nama: document.getElementById('rsvpNama').value,
-                kehadiran: document.getElementById('rsvpStatus').value,
-                pax: document.getElementById('rsvpPax').value || 0
-            };
-
-            // GOOGLE_SCRIPT_URL merujuk kepada pemboleh ubah URL Google Sheets anda
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataPayload)
-            })
-            .then(() => {
-                maklumbalasRSVP.style.color = "#2e7d32";
-                maklumbalasRSVP.innerHTML = "RSVP anda telah berjaya dihantar! ✨";
-                borangRSVP.reset();
-            })
-            .catch(error => {
-                maklumbalasRSVP.style.color = "#c62828";
-                maklumbalasRSVP.innerHTML = "Ralat berlaku. Sila cuba lagi.";
-                console.error('Error:', error);
-            });
-            // --- KOD ASAL HANTAR KE GOOGLE SHEETS TAMAT DI SINI ---
+        })
+        .catch(error => {
+            maklumbalasUcapan.style.color = "#c62828";
+            maklumbalasUcapan.innerHTML = "Gagal menghantar ucapan. Sila cuba lagi.";
+            console.error('Error:', error);
         });
-    }
+    });
+}
+
 
 
 
@@ -192,24 +219,29 @@ document.getElementById('wishesForm').addEventListener('submit', function(e) {
     });
 });
 // Fungsi untuk memuatkan ucapan dari Google Sheets
+// 📍 KOD PEMBETULAN: MEMUATKAN UCAPAN TANPA DUPLIKASI & BUANG IKON
 function muatTurunUcapan() {
     const wishesBox = document.getElementById('wishesBox');
+
+    if (!wishesBox) return;
+
+    // 1. KOD KUNCI: Wajib kosongkan kotak sebelum memuatkan senarai baharu
+    wishesBox.innerHTML = ""; 
 
     fetch(GOOGLE_SCRIPT_URL)
     .then(response => response.json())
     .then(data => {
-        wishesBox.innerHTML = ""; // Padam teks "Sedang memuatkan..."
-
         if (data.length === 0) {
             wishesBox.innerHTML = "<p class='loading-text'>Belum ada ucapan lagi. Jadilah yang pertama!</p>";
             return;
         }
 
-        // Bina elemen HTML bagi setiap ucapan
+        // 2. Bina elemen HTML bagi setiap ucapan (Ikon orang 👤 telah dibuang)
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'wish-card';
-            card.innerHTML = `<strong>👤 ${item.nama}</strong><p>${item.ucapan}</p>`;
+            // Hanya paparkan nama dan ucapan bersih tanpa simbol ikon orang
+            card.innerHTML = `<strong>${item.nama}</strong><p>${item.ucapan}</p>`;
             wishesBox.appendChild(card);
         });
     })
