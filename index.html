@@ -12,17 +12,32 @@
 </head>
 <body>
 
-    <!-- HALAMAN PINTU DEPAN (GATEWAY OVERLAY) -->
-    <div id="pintuDepan" class="pintu-depan-overlay">
-        <div class="pintu-content">
-            <p class="pintu-subtitle">Walimatulurus</p>
-            <h2 class="pintu-names">Amirul & Hayati</h2>
-            <p class="pintu-guest-label">Kepada Jemputan Budiman:</p>
-            <!-- Nama tetamu boleh ditaip atau muncul secara automatik -->
-            <h3 id="namaTetamuPintu" class="pintu-guest-name">Nama Tetamu</h3> 
-            <button id="btnBukaPintu" class="btn-buka">🔑 Buka Undangan</button>
+    <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
+<div id="pintuDepan" class="envel-overlay">
+    <div class="envel-wrapper">
+        <!-- Sampul Surat -->
+        <div id="envelopeContainer" class="envel-box">
+            <!-- Penutup Atas Sampul (Segi Tiga) -->
+            <div class="envel-flap"></div>
+            
+            <!-- Bahagian Poket Depan Sampul -->
+            <div class="envel-pocket"></div>
+            
+            <!-- Kad Jemputan Di Dalam Sampul (Akan Naik Ke Atas) -->
+            <div class="envel-card">
+                <p class="envel-subtitle">Walimatulurus</p>
+                <h2 class="envel-names">Amirul & Hayati</h2>
+                <div class="envel-guest-zone">
+                    <p>Kepada Jemputan Budiman:</p>
+                    <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
+                </div>
+                <!-- Butang Buka Bertindak Sebagai Picu Animasi -->
+                <button id="btnBukaPintu" class="envel-btn-buka">🔑 Buka Undangan</button>
+            </div>
         </div>
     </div>
+</div>
+
 
 
     <!-- Kad Utama Latar Belakang -->
@@ -85,8 +100,34 @@
             <div class="ayat-countdown">
             <h3>Menghitung Hari Bahagia</h3>
             </div>
-            <div id="countdownDisplay" class="countdown-timer">00h 00j 00m 00s</div>
-        </section>
+            <!-- KOTAK PEMASA GAYA FLIP CLOCK -->
+<section class="countdown-section"> 
+    <div class="flip-clock-container">
+        <!-- Kotak Hari -->
+        <div class="flip-unit">
+            <div id="flip-hari" class="flip-card">00</div>
+            <span class="flip-label">Hari</span>
+        </div>
+        
+        <!-- Kotak Jam -->
+        <div class="flip-unit">
+            <div id="flip-jam" class="flip-card">00</div>
+            <span class="flip-label">Jam</span>
+        </div>
+        
+        <!-- Kotak Minit -->
+        <div class="flip-unit">
+            <div id="flip-minit" class="flip-card">00</div>
+            <span class="flip-label">Minit</span>
+        </div>
+        
+        <!-- Kotak Saat -->
+        <div class="flip-unit">
+            <div id="flip-saat" class="flip-card">00</div>
+            <span class="flip-label">Saat</span>
+        </div>
+    </div>
+</section>
 
         <!-- SEKSYEN RSVP -->
        <section class="rsvp-section">
@@ -98,7 +139,15 @@
                     <option value="Hadir">Hadir</option>
                     <option value="Tidak Hadir">Tidak Hadir</option>
                 </select>
-                <input type="number" id="rsvpPax" placeholder="Jumlah Pax (1-4)">
+                <!-- 📍 GANTIKAN KOD KOTAK PAX LAMA KEPADA KOD DI BAWAH -->
+<div class="pax-counter-wrapper">
+    <button type="button" class="pax-btn" onclick="var inp = document.getElementById('rsvpPax'); var val = parseInt(inp.value) || 0; if(val <= 0) { inp.value = 4; } else { inp.value = val - 1; }">▼</button>
+    
+    <input type="text" id="rsvpPax" value="0" readonly class="pax-input-display">
+    
+    <button type="button" class="pax-btn" onclick="var inp = document.getElementById('rsvpPax'); var val = parseInt(inp.value) || 0; if(val >= 4) { inp.value = 0; } else { inp.value = val + 1; }">▲</button>
+</div>
+
                 <button type="submit" class="btn-primary">Hantar RSVP</button>
             </form>
             <p id="rsvpFeedback" class="feedback-msg"></p>
