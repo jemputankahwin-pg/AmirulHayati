@@ -1,28 +1,28 @@
 window.addEventListener('DOMContentLoaded', function() {
     
-    const pintu = document.getElementById('pintuDepan');
-    const btnBuka = document.getElementById('btnBukaPintu');
-    const lagu = document.getElementById('bgMusic');
-    const butangLagu = document.getElementById('musicToggleBtn');
+    const overlayTirai = document.getElementById('pintuDepan');
+    const kotakSampul = document.getElementById('envelopeContainer');
+    const btnBukaSampul = document.getElementById('btnBukaPintu');
+    const laguKahwin = document.getElementById('bgMusic');
 
-
-    // 1. LOGIK LOG MASUK / BUKA PINTU DEPAN
-     if (btnBuka && pintu) {
-        btnBuka.addEventListener('click', function() {
-            // Memaksa pintu meluncur naik ke atas dengan menambah kelas CSS
-            pintu.classList.add('pintu-tertutup');
+    if (btnBukaSampul && kotakSampul && overlayTirai) {
+        btnBukaSampul.addEventListener('click', function() {
             
-            // Mengaktifkan lagu secara selamat tanpa membekukan kod jika ralat
-            if (lagu) {
-                lagu.play().then(() => {
-                    if (butangLagu) {
-                        butangLagu.innerHTML = "🎶";
-                        butangLagu.classList.add('music-playing');
-                    }
-                }).catch(err => {
-                    console.log("Muzik disekat pelayar web, memerlukan klik tambahan:", err);
-                });
+            // Langkah A: Buka penutup surat dan tarik kad naik ke atas
+            kotakSampul.classList.add('buka-flap');
+
+            // 📍 KOD KUNCI: Memaksa butang "Buka Undangan" ini hilang serta-merta apabila diklik
+            this.style.display = 'none'; 
+            
+            // Mengaktifkan lagu perkahwinan anda secara automatik
+            if (laguKahwin) {
+                laguKahwin.play().catch(err => console.log("Muzik disekat browser:", err));
             }
+
+            // Langkah B: Tunggu 1.5 saat (animasi surat selesai), kemudian luncurkan seluruh tirai keluar
+            setTimeout(function() {
+                overlayTirai.classList.add('tutup-tirai');
+            }, 1800);
         });
     }
 
@@ -42,22 +42,44 @@ window.addEventListener('DOMContentLoaded', function() {
 // 1. KIRAAN DETIK (COUNTDOWN) MAJLIS
 const tarikhMajlis = new Date("Mar 20, 2027 11:00:00").getTime();
 
-const pemasa = setInterval(function() {
-    const masaKini = new Date().getTime();
-    const bakiMasa = tarikhMajlis - masaKini;
+// Ambil elemen paparan kad dari HTML
+const cardHari = document.getElementById("flip-hari");
+const cardJam = document.getElementById("flip-jam");
+const cardMinit = document.getElementById("flip-minit");
+const cardSaat = document.getElementById("flip-saat");
 
-    const hari = Math.floor(bakiMasa / (1000 * 60 * 60 * 24));
-    const jam = Math.floor((bakiMasa % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minit = Math.floor((bakiMasa % (1000 * 60 * 60)) / (1000 * 60));
-    const saat = Math.floor((bakiMasa % (1000 * 60)) / 1000);
+if (cardHari && cardJam && cardMinit && cardSaat) {
+    setInterval(function() {
+        const masaKini = new Date().getTime();
+        const bakiMasa = tarikhMajlis - masaKini;
 
-    document.getElementById("countdownDisplay").innerHTML = `${hari} Hari ${jam} Jam ${minit} Minit ${saat} Saat`;
+        // Logik pengiraan matematik masa
+        let hari = Math.floor(bakiMasa / (1000 * 60 * 60 * 24));
+        let jam = Math.floor((bakiMasa % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minit = Math.floor((bakiMasa % (1000 * 60 * 60)) / (1000 * 60));
+        let saat = Math.floor((bakiMasa % (1000 * 60)) / 1000);
 
-    if (bakiMasa < 0) {
-        clearInterval(pemasa);
-        document.getElementById("countdownDisplay").innerHTML = "Majlis Sedang Berlangsung!";
-    }
-}, 1000);
+        // Fungsi padPad (Format: jika 9 saat, ditukar paparan ke '09')
+        hari = hari < 10 ? "0" + hari : hari;
+        jam = jam < 10 ? "0" + jam : jam;
+        minit = minit < 10 ? "0" + minit : minit;
+        saat = saat < 10 ? "0" + saat : saat;
+
+        // Masukkan angka ke dalam kotak kad masing-masing
+        cardHari.innerHTML = hari;
+        cardJam.innerHTML = jam;
+        cardMinit.innerHTML = minit;
+        cardSaat.innerHTML = saat;
+
+        // Jika tarikh perkahwinan telah tiba/lepas
+        if (bakiMasa < 0) {
+            cardHari.innerHTML = "00";
+            cardJam.innerHTML = "00";
+            cardMinit.innerHTML = "00";
+            cardSaat.innerHTML = "00";
+        }
+    }, 1000);
+}
 
 // 2. BORANG RSVP PENGHANTARAN MOCK
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHftf0idOHWFcXVOPDmiwRt8eSPTFmhZ3xdRU0tK4-dvI6It9YbDpSSVNE1HwjSw/exec";
@@ -199,39 +221,6 @@ function muatTurunUcapan() {
 
 // Jalankan fungsi ini secara automatik sebaik sahaja halaman web selesai dimuatkan
 window.addEventListener('DOMContentLoaded', muatTurunUcapan);
-
-const rsvpPaxInput = document.getElementById('rsvpPax');
-
-// 1. Kawalan Menggunakan Butang Anak Panah (Keyboard / Spin Buttons)
-rsvpPaxInput.addEventListener('keydown', function(e) {
-    let nilaiSemasa = parseInt(this.value) || 1;
-
-    // Jika pengguna menekan butang anak panah ATAS
-    if (e.key === 'ArrowUp') {
-        if (nilaiSemasa >= 4) {
-            e.preventDefault(); // Sekat fungsi asal browser
-            this.value = 1;     // Pusing balik ke 1
-        }
-    }
-    // Jika pengguna menekan butang anak panah BAWAH
-    else if (e.key === 'ArrowDown') {
-        if (nilaiSemasa <= 1) {
-            e.preventDefault(); // Sekat fungsi asal browser
-            this.value = 4;     // Pusing balik ke 4
-        }
-    }
-});
-
-// 2. Kawalan Keselamatan (Jika pengguna menaip sendiri nombor di luar julat 1-4)
-rsvpPaxInput.addEventListener('input', function() {
-    let nilaiSemasa = parseInt(this.value);
-    
-    if (nilaiSemasa > 4) {
-        this.value = 1;
-    } else if (nilaiSemasa < 1) {
-        this.value = 4;
-    }
-});
 
 const lagu = document.getElementById('bgMusic');
 
