@@ -80,44 +80,135 @@ body {
     text-align: center;
 }
 
-/* 📍 PINTU DEPAN (OVERLAY PENUH SEBELUM MASUK KAD) */
-.pintu-depan-overlay {
+/* CONTAINER UTAMA PENUH SKRIN */
+.envel-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(234, 230, 223, 0.98); /* Warna krim lembut dengan sedikit lutsinar */
+    background-color: #f5f2eb; /* Warna latar belakang luar */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Lapisan paling atas sekali sebelum butang ditekan */
-  /* 📍 WAJIB ADA: Menetapkan kelajuan animasi gelongsor (1 saat) */
-    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.2s ease;
+    z-index: 99999;
+    transition: opacity 0.8s ease 1s, transform 0.8s ease 1s;
 }
 
-/* 2. 📍 KOD KUNCI PEMBETULAN: PERGERAKAN APABILA BUTANG DIKLIK */
-.pintu-depan-overlay.pintu-tertutup {
-    transform: translateY(-100vh) !important; /* Memaksa pintu meluncur naik ke atas melepasi skrin */
-    opacity: 0;                               /* Membuatkan pintu hilang secara perlahan */
-    pointer-events: none;                     /* Menghalang tetamu daripada tersentuh pintu lagi */
+.envel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
 }
 
-/* KANDUNGAN KOTAK PUTIH DI DALAM PINTU DEPAN */
-.pintu-content {
-    font-family: 'bohemian', cursive;
-    background: #ffffff;
-    color: #333;
-    padding: 40px 30px;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 85%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    border: 1px solid #eae2d5;
-    z-index: 10000;
+/* KOTAK SAMPUL SURAT (ASAS) */
+.envel-box {
+    position: relative;
+    width: 90%;
+    height: 300px;
+    background-color: #eae2d5; /* Warna badan sampul */
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    align-self: flex-end;
+}
 
+/* PENUTUP ATAS SAMPUL (FLAP SEGI TIGA) */
+.envel-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 190px solid transparent;
+    border-right: 190px solid transparent;
+    border-top: 150px solid #dcd1be; /* Warna penutup atas */
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 3;
+}
+/* Lebar responsif untuk telefon pintar */
+@media (max-width: 420px) {
+    .envel-flap {
+        border-left: 45vw solid transparent;
+        border-right: 45vw solid transparent;
+        border-top: 35vw solid #dcd1be;
+    }
+}
+
+/* POKET DEPAN SAMPUL (MENUTUP KAD DI DALAM) */
+.envel-pocket {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eae2d5;
+    /* Teknik potongan klip untuk efek lipatan poket depan */
+    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
+    border-radius: 0 0 8px 8px;
+    z-index: 4;
+}
+
+/* KAD JEMPUTAN DI DALAM SAMPUL */
+.envel-card {
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    width: 90%;
+    height: 280px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
     text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2; /* Berada di belakang poket dan penutup */
 }
+
+/* REKA BENTUK DALAM KAD SAMPUL */
+.envel-subtitle { font-family: 'bohemian', cursive; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: #777; margin: 0; }
+.envel-names { font-family: 'Tulisan Pintu', cursive; font-size: 2.3rem; color: #b39258; margin: 10px 0; }
+.envel-guest-zone { font-family: 'bohemian', cursive; font-size: 0.8rem; color: #555; margin-bottom: 15px; }
+.envel-guest-name { font-family: 'Bohemian', cursive; font-size: 1.05rem; font-weight: 600; color: #222; margin: 5px 0 0 0; }
+.envel-btn-buka {
+    background-color: #b39258;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(179, 146, 88, 0.3);
+}
+
+/* =========================================================
+   ANIMASI PEMBUKAAN (DIKUNCI OLEH KELAS JAVASCRIPT AKTIF)
+   ========================================================= */
+
+/* 1. Penutup Atas Terbuka Ke Atas (Flip Up) */
+.envel-box.buka-flap .envel-flap {
+    transform: rotateX(180deg);
+    z-index: 1; /* Selepas terbuka, turunkan lapisan ke belakang */
+}
+
+/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas */
+.envel-box.buka-flap .envel-card {
+    transform: translateY(-120px);
+    z-index: 5; /* Naik ke lapisan paling atas sekali melepas lipatan */
+}
+
+/* 3. Seluruh Tirai Latar Belakang Hilang */
+.envel-overlay.tutup-tirai {
+    transform: translateY(-100vh);
+    opacity: 0;
+    pointer-events: none;
+}
+
 
 /* Sorokkan atau kecilkan hiasan pada skrin telefon pintar yang sempit supaya tidak semak */
 @media (max-width: 768px) {
@@ -209,6 +300,79 @@ body {
     padding: 10px 25px;
     margin-top: 10px;
 }
+
+/* CONTAINER UTAMA FLIP CLOCK */
+.flip-clock-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px auto;
+    font-family: 'bohemian', cursive;
+}
+
+/* UNIT KELOMPOK (KAD + LABEL) */
+.flip-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+}
+
+/* KAD FLIP (KOTAK ANGKA) */
+.flip-card {
+    position: relative;
+    background-color: #2c2519; /* Warna coklat gelap/hitam premium */
+    color: #f5f2eb;            /* Warna angka putih pudar/krim */
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: 'bohemian', cursive;
+    width: 100%;
+    height: 60px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #4a3f2c;
+    overflow: hidden;
+}
+
+/* GARISAN TENGAH JAM FLIP (HORIZONTAL DIVIDER) */
+.flip-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.4); /* Memberikan efek potongan fizikal jam flip */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* LABEL DI BAWAH KAD (HARI, JAM, MINIT, SAAT) */
+.flip-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8c764d; /* Warna keemasan lembut */
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+/* Pengoptimuman saiz di skrin telefon pintar */
+@media (max-width: 400px) {
+    .flip-unit {
+        width: 60px;
+    }
+    .flip-card {
+        font-size: 1.5rem;
+        height: 50px;
+    }
+    .flip-label {
+        font-size: 0.65rem;
+    }
+}
+
 
 /* Borang RSVP */
 .rsvp-section, .wishes-section {
@@ -345,31 +509,82 @@ textarea {
     color: #222;
 }
 
-/* Bar Menu Terapung (Sticky Bottom Nav) */
 .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 480px;
-    background-color: #ffffff;
-    box-shadow: 0px -5px 15px rgba(0,0,0,0.08);
-    display: flex;
+    max-width: 450px;
+    display: flex !important;
+    flex-direction: row !important;
     justify-content: space-around;
-    padding: 12px 0;
+    padding: 16px 10px; /* 📍 Menambah sedikit ruang padding atas-bawah supaya butang tidak rapat ke bucu */
     z-index: 1000;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    
+    /* 📍 KOD KUNCI: Membuatkan bucu atas kiri dan bucu atas kanan melengkung lembut */
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+    
+    /* Bingkai halus kilauan kaca mengikut kelengkungan bucu */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    
+    box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.05);
 }
 
+/* GAYA KACA LUTSINTAR (GLASSMORPHISM) UNTUK BUTANG NAVIGASI BAWAH */
 .nav-item {
     text-decoration: none;
-    font-family: 'bohemian', cursive;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #333;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 20px;
-    background-color: #f5f5f5;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-family: 'bohemian', cursive;
+    
+    /* 📍 KOD KUNCI KACA: Membuatkan latar belakang kabur separa lutsinar */
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); /* Sokongan ekstra untuk Safari/iOS */
+    
+    /* Garisan bingkai halus seperti kilauan bucu kaca */
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    
+    /* Kesan bayang lembut di bawah butang */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+}
+
+/* 📍 KEMASKINI WARNA LAPISAN KACA MENGIKUT JENIS BUTANG */
+
+/* Kaca Biru Lembut (Waze) */
+.waze-color { 
+    background-color: rgb(131, 178, 212) !important; 
+    color: #0d47a1 !important; 
+}
+
+/* Kaca Hijau Lembut (Maps) */
+.google-color { 
+    background-color: rgb(140, 224, 147) !important; 
+    color: #1b5e20 !important; 
+}
+
+/* Kaca Hijau Pekat WhatsApp (Hubungi) */
+.whatsapp-color { 
+    background-color: rgb(139, 250, 149) !important; 
+    color: #2e7d32 !important; 
+}
+
+/* 📍 KESAN APABILA JARI TETAMU MENYENTUH/KLIK BUTANG (HOVER EFFECT) */
+.nav-item:hover {
+    transform: translateY(-3px); /* Butang naik sedikit seperti terapung */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.85) !important; /* Kaca bertukar lebih putih berkilat */
 }
 
 /* Warna butang hiasan navigasi */
@@ -458,6 +673,10 @@ textarea {
     z-index: 1000; 
 }
 
+.contact-info {
+    font-family: 'bohemian', cursive;
+}
+
 /* Pastikan susunan contact-actions tidak membahagi dua lagi */
 .contact-actions {
     display: block;
@@ -501,5 +720,48 @@ textarea {
     to { transform: rotate(360deg); }
 }
 
+/* GAYA KOTAK INPUT PAX BAHARU */
+.pax-counter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #ffffff;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Kotak Paparan Angka Di Tengah */
+.pax-input-display {
+    border: none !important;
+    text-align: center !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    background: transparent !important;
+    padding: 12px 0 !important;
+    width: 50% !important;
+    outline: none !important;
+}
+
+/* Butang Anak Panah Kiri & Kanan (Atas & Bawah) */
+.pax-btn {
+    background-color: #faf8f5;
+    color: #b39258;
+    border: none;
+    width: 25%;
+    height: 100%;
+    padding: 14px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pax-btn:hover {
+    background-color: #eae2d5;
+}
 
 
