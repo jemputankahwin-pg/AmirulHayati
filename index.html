@@ -25,31 +25,43 @@
 </head>
 <body>
 
-   <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
-    <div id="pintuDepan" class="envel-overlay">
-        <div class="envel-wrapper">
-            <!-- Sampul Surat (ID ini wajib sepadan dengan skrip JS anda) -->
-            <div id="envelopeContainer" class="envel-box">
-                <!-- Penutup Atas Sampul (Segi Tiga) -->
-                <div class="envel-flap"></div>
-                
-                <!-- Bahagian Poket Depan Sampul -->
-                <div class="envel-pocket"></div>
-                
-                <!-- Kad Jemputan Di Dalam Sampul (Akan Naik Ke Atas) -->
-                <div class="envel-card">
-                    <p class="envel-subtitle">Walimatulurus</p>
-                    <h2 class="envel-names">Amirul & Hayati</h2>
-                    <div class="envel-guest-zone">
-                        <p>Kepada Jemputan Budiman:</p>
-                        <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
-                    </div>
-                    <!-- Butang Buka Bertindak Sebagai Picu Animasi -->
-                    <button id="btnBukaPintu" class="envel-btn-buka">🔑 Buka Undangan</button>
+  <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
+<div id="pintuDepan" class="envel-overlay">
+    <div class="envel-wrapper">
+        
+        <!-- 📍 Kotak Sampul Surat Asas -->
+        <div id="envelopeContainer" class="envel-box">
+            
+            <!-- 1. Penutup Atas Sampul (Segi Tiga Coklat) -->
+            <div class="envel-flap"></div>
+            
+            <!-- 2. Bahagian Poket Depan Sampul -->
+            <div class="envel-pocket"></div>
+            
+            <!-- 3. Kad Jemputan Di Dalam Sampul -->
+            <div class="envel-card">
+                <p class="envel-subtitle">Walimatulurus</p>
+                <h2 class="envel-names">Amirul & Hayati</h2>
+                <div class="envel-guest-zone">
+                    <p>Kepada Jemputan Budiman:</p>
+                    <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
                 </div>
+                
+                <!-- 📍 PINATASAN JS: Butang dipasang fungsi onclick langsung untuk elak ralat script tersangkut -->
+                <button id="btnBukaPintu" class="envel-btn-buka" onclick="
+                    document.getElementById('envelopeContainer').classList.add('buka-flap');
+                    this.style.display = 'none';
+                    var lagu = document.getElementById('bgMusic'); if(lagu){ lagu.play().catch(e=>console.log(e)); }
+                    setTimeout(function() {
+                        document.getElementById('pintuDepan').classList.add('tutup-tirai');
+                        var nav = document.querySelector('.nav-menu'); if(nav){ nav.style.setProperty('display', 'flex', 'important'); }
+                    }, 1800);
+                ">🔑 Buka Undangan</button>
             </div>
+            
         </div>
-    </div> 
+    </div>
+</div>
 
     <!-- Kad Utama Latar Belakang -->
     <div class="card-container">
