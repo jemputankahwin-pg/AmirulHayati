@@ -541,18 +541,27 @@ textarea {
 /* 📍 POSISI UTAMA: Mengunci kedudukan butang di bahagian bawah skrin (Fixed Bottom) */
 .nav-container {
     position: fixed !important;
-    bottom: 20px !important;    /* Menolak butang duduk di bawah skrin, bukan di atas */
+    bottom: 20px !important;       /* Jarak bar dari bawah skrin telefon */
     left: 50% !important;
-    transform: translateX(-50%) !important; /* Memastikan kedudukan butang betul-betul di tengah skrin */
+    transform: translateX(-50%) !important;
     display: flex !important;
-    flex-direction: row !important; /* Menyusun butang melintang */
-    justify-content: center !important;
+    flex-direction: row !important;
     align-items: center !important;
-    gap: 12px !important;       /* Jarak antara setiap butang */
-    width: 90% !important;      /* Lebar kawasan butang mengikut skrin telefon */
-    max-width: 400px !important;
-    z-index: 9999 !important;   /* Memaksa butang sentiasa duduk di lapisan paling atas kad */
+    justify-content: space-around !important;
+    gap: 10px !important;
+    width: 90% !important;         /* Lebar bar kaca memanjang */
+    max-width: 420px !important;
+    padding: 12px 15px !important; /* Ruang dalam bar */
+    z-index: 99999 !important;
     box-sizing: border-box !important;
+    
+    /* 🛠️ EFEK UTAMA TRANSPARENT GLASS (Wajib Ada) */
+    background-color: rgba(255, 255, 255, 0.4) !important; /* Lapisan putih kelabu cair */
+    backdrop-filter: blur(15px) !important;                /* Kesan kabur kabus */
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.5) !important; /* Garisan kilauan bucu kaca */
+    border-radius: 35px !important;                        /* Bucu membulat panjang */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08) !important; /* Bayang lembut di bawah bar */
 }
 
 /* 📍 GAYA BAR NAVIGASI BELAKANG (BAR KACA PANJANG) */
