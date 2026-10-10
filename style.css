@@ -166,24 +166,33 @@ body {
 /* KAD JEMPUTAN PUTIH DI DALAM SAMPUL */
 .envel-card {
     position: absolute !important;
-    top: 35px !important; /* Diturunkan ke dalam sampul */
+    top: 0 !important;             /* Kunci pada bucu atas sampul */
     left: 5% !important;
     width: 90% !important;
-    height: 260px !important;
+    height: 250px !important;       
     background-color: #ffffff !important;
     border-radius: 8px !important;
     padding: 20px !important;
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    z-index: 2 !important; /* Disorokkan paling bawah di belakang poket dan segitiga */
+    z-index: 2 !important;          /* Berada di belakang penutup dan poket */
+    
+    /* 🛠️ KOD KUNCI BARU: Memaksa kad putih ditarik turun sebanyak 130px supaya tersembunyi sepenuhnya di dalam sampul! */
+    transform: translateY(130px) !important; 
+    
+    /* Menggunakan transition untuk animasi meluncur naik kelak */
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
-/* 📍 KOD KUNCI: BUTANG TERAPUNG DI DEPAN SAMPUL (KALIS SEKATAN KLIK) */
+/* 📍 KOD KUNCI: KEDUDUKAN BUTANG TENGAH (MENGUNCI POSISI DI HADAPAN SAMPUL) */
 .envel-btn-buka.trigger-depan {
     position: absolute !important;
-    bottom: 35px !important; /* Diletakkan tepat di atas permukaan poket depan sampul coklat */
+    
+    /* 🛠️ DIBAIKI: Mengunci butang berada di bahagian bawah kawasan poket coklat */
+    bottom: 30px !important; 
+    top: auto !important; 
+    
     left: 50% !important;
     transform: translateX(-50%) !important;
     background-color: #b39258 !important;
@@ -196,7 +205,7 @@ body {
     cursor: pointer !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
     
-    /* Mengunci kedudukan di lapisan teratas sekali supaya hanya butang ini yang boleh dilihat dan ditekan */
+    /* Mengunci di lapisan teratas sekali supaya boleh dilihat & ditekan */
     z-index: 9999 !important; 
     pointer-events: auto !important;
 }
@@ -207,16 +216,19 @@ body {
 .envel-guest-zone { font-family: 'bohemian', cursive; font-size: 0.8rem; color: #555; margin-bottom: 15px; }
 .envel-guest-name { font-family: 'Bohemian', cursive; font-size: 1.05rem; font-weight: 600; color: #222; margin: 5px 0 0 0; }
 
-/* ANIMASI APABILA KELAS AKTIF JAVASCRIPT DIKUTIK */
+/* Penutup Flap Segi Tiga Melipat Terbuka Ke Atas */
 .envel-box.buka-flap .envel-flap {
     transform: rotateX(180deg) !important;
     z-index: 1 !important;
 }
+
+/* 🛠️ DIBAIKI: Kad putih melonjak meluncur keluar dari dalam sampul ke atas skrin */
 .envel-box.buka-flap .envel-card {
-    /* Menolak kad putih naik meluncur keluar dengan penuh selepas sampul terbuka */
-    transform: translateY(-160px) !important;
+    /* Menukar nilai positif (130px) kepada negatif (-150px) untuk heret kad naik meluncur ke atas */
+    transform: translateY(-150px) !important;
     z-index: 5 !important;
 }
+
 .envel-overlay.tutup-tirai {
     transform: translateY(-100vh) !important;
     opacity: 0 !important;
