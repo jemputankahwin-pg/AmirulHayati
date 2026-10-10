@@ -543,8 +543,6 @@ textarea {
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 20px;
     box-sizing: border-box;
     transition: all 0.3s ease;
     font-family: 'bohemian', cursive;
@@ -560,31 +558,37 @@ textarea {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
-/* 📍 KEMASKINI WARNA LAPISAN KACA MENGIKUT JENIS BUTANG */
-
-/* Kaca Biru Lembut (Waze) */
-/* Gaya asas butang untuk pastikan ikon dan teks sebaris */
+/* 📍 GAYA ASAS BUTANG: Memastikan logo imej dan teks tersusun sebaris */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Jarak antara ikon dengan teks */
+    gap: 8px; /* Jarak antara logo imej dengan teks */
     padding: 10px 20px;
     border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
 }
 
-/* Mengawal saiz dan kedudukan ikon (Waze, Maps, WhatsApp) */
+/* 📍 MENGAWAL SAIZ LOGO (WAZE, MAPS, WHATSAPP) SUPAYA TIDAK PECAH/BESAR */
 .btn-icon {
-    font-size: 20px;
+    width: 18px;          /* Mengecilkan saiz logo imej supaya seimbang dengan teks */
+    height: 18px;
+    object-fit: contain;  /* Memastikan bentuk logo tidak herot */
     display: inline-block;
-    vertical-align: middle;
 }
 
-/* Kaca Hijau Pekat WhatsApp (Hubungi) */
+/* 📍 KEMASKINI WARNA LAPISAN KACA MENGIKUT JENIS BUTANG */
+.waze-color { 
+    background-color: rgba(227, 242, 253, 0.6) !important; 
+    color: #0d47a1 !important; 
+}
+.google-color { 
+    background-color: rgba(232, 245, 233, 0.6) !important; 
+    color: #1b5e20 !important; 
+}
 .whatsapp-color { 
-    background-color: rgb(139, 250, 149) !important; 
+    background-color: rgba(139, 250, 149, 0.6) !important; 
     color: #2e7d32 !important; 
 }
 
@@ -594,11 +598,6 @@ textarea {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.85) !important; /* Kaca bertukar lebih putih berkilat */
 }
-
-/* Warna butang hiasan navigasi */
-.waze-color { background-color: #e3f2fd; color: #0d47a1; }
-.google-color { background-color: #e8f5e9; color: #1b5e20; }
-.whatsapp-color { background-color: #e8f5e9; color: #2e7d32; }
 
 /* GAYA BUTANG WHATSAPP PENUH (FULL WIDTH) */
 .action-btn.wa-full {
@@ -617,10 +616,6 @@ textarea {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.action-btn.wa-full:hover {
-    background-color: #1b5e20;    /* Warna hijau lebih gelap apabila disentuh tetikus */
-    transform: scale(1.02);       /* Memberikan kesan membesar sedikit (pop effect) */
-}
 
 /* 1. OVERLAY GELAP PENUH SKRIN (MENGUNCI KEDUDUKAN LUAR) */
 .popup-modal-overlay {
