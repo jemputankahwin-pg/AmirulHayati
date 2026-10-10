@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function() {
     
-    const overlayTirai = document.getElementById('pintuDepan');
+    const overlayTirai = document.querySelector('.envel-overlay'); // Dikemaskini mengikut kelas CSS anda
     const kotakSampul = document.getElementById('envelopeContainer');
     const btnBukaSampul = document.getElementById('btnBukaPintu');
     const laguKahwin = document.getElementById('bgMusic');
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', function() {
             // Langkah A: Buka penutup surat dan tarik kad naik ke atas
             kotakSampul.classList.add('buka-flap');
 
-            // 📍 KOD KUNCI: Memaksa butang "Buka Undangan" ini hilang serta-merta apabila diklik
+            // Memaksa butang "Buka Undangan" ini hilang serta-merta apabila diklik
             this.style.display = 'none'; 
             
             // Mengaktifkan lagu perkahwinan anda secara automatik
@@ -19,19 +19,19 @@ window.addEventListener('DOMContentLoaded', function() {
                 laguKahwin.play().catch(err => console.log("Muzik disekat browser:", err));
             }
             
-            // Langkah B: Tunggu 1.5 saat (animasi surat selesai), kemudian luncurkan seluruh tirai keluar
+            // Langkah B: Tunggu 1.8 saat (animasi surat selesai), kemudian luncurkan seluruh tirai keluar
             setTimeout(function() {
                 overlayTirai.classList.add('tutup-tirai');
-
-                 // 2. 📍 KOD DIBAIKI: Semak jika element .nav-menu wujud dahulu sebelum tukar gaya untuk elak ralat script terhenti
+                
+                // Memunculkan bar navigasi kaca bawah di skrin utama
                 const barKaca = document.querySelector('.nav-menu');
                 if (barKaca) {
                     barKaca.style.setProperty('display', 'flex', 'important');
                 }
-                
             }, 1800);
         });
     }
+});
 
     // 2. BONUS: MEMBACA NAMA TETAMU DARI LINK (Contoh: ://webanda.com)
     const pautanParameter = new URLSearchParams(window.location.search);
