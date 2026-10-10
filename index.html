@@ -25,33 +25,31 @@
 </head>
 <body>
 
-    <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
-<div id="pintuDepan" class="envel-overlay">
-    <div class="envel-wrapper">
-        <!-- Sampul Surat -->
-        <div id="envelopeContainer" class="envel-box">
-            <!-- Penutup Atas Sampul (Segi Tiga) -->
-            <div class="envel-flap"></div>
-            
-            <!-- Bahagian Poket Depan Sampul -->
-            <div class="envel-pocket"></div>
-            
-            <!-- Kad Jemputan Di Dalam Sampul (Akan Naik Ke Atas) -->
-            <div class="envel-card">
-                <p class="envel-subtitle">Walimatulurus</p>
-                <h2 class="envel-names">Amirul & Hayati</h2>
-                <div class="envel-guest-zone">
-                    <p>Kepada Jemputan Budiman:</p>
-                    <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
+   <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
+    <div id="pintuDepan" class="envel-overlay">
+        <div class="envel-wrapper">
+            <!-- Sampul Surat (ID ini wajib sepadan dengan skrip JS anda) -->
+            <div id="envelopeContainer" class="envel-box">
+                <!-- Penutup Atas Sampul (Segi Tiga) -->
+                <div class="envel-flap"></div>
+                
+                <!-- Bahagian Poket Depan Sampul -->
+                <div class="envel-pocket"></div>
+                
+                <!-- Kad Jemputan Di Dalam Sampul (Akan Naik Ke Atas) -->
+                <div class="envel-card">
+                    <p class="envel-subtitle">Walimatulurus</p>
+                    <h2 class="envel-names">Amirul & Hayati</h2>
+                    <div class="envel-guest-zone">
+                        <p>Kepada Jemputan Budiman:</p>
+                        <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
+                    </div>
+                    <!-- Butang Buka Bertindak Sebagai Picu Animasi -->
+                    <button id="btnBukaPintu" class="envel-btn-buka">🔑 Buka Undangan</button>
                 </div>
-                <!-- Butang Buka Bertindak Sebagai Picu Animasi -->
-                <button id="btnBukaPintu" class="envel-btn-buka">🔑 Buka Undangan</button>
             </div>
         </div>
-    </div>
-</div>
-
-
+    </div> 
 
     <!-- Kad Utama Latar Belakang -->
     <div class="card-container">
