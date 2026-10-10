@@ -148,11 +148,16 @@ body {
     }
 }
 
+/* =========================================================
+   📍 SUSUNAN LAPISAN SAMPUL SURAT (DIBAIKI UNTUK FUNGSI KLIK)
+   ========================================================= */
+
 /* KAD JEMPUTAN DI DALAM SAMPUL */
 .envel-card {
     position: absolute;
-    /* 🛠️ DIBAIKI: Diturunkan ke top: 30px supaya kad putih tenggelam sepenuhnya di dalam sampul */
-    top: 30px !important; 
+    /* 🛠️ DIBAIKI: Ditukar daripada top:30px kepada bottom: 10px supaya ia masuk ke dalam dasar sampul */
+    bottom: 10px !important; 
+    top: auto !important; /* Membatalkan tetapan top yang lama */
     left: 5%;
     width: 90%;
     height: 280px;
@@ -163,9 +168,35 @@ body {
     text-align: center;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
     
-    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 2 supaya tersembunyi sepenuhnya di belakang penutup dan poket */
-    z-index: 2 !important; 
+    /* 🛠️ DIBAIKI: Kunci pada z-index: 5 supaya ia berada di LAPISAN PALING ATAS agar butang boleh diklik! */
+    z-index: 5 !important; 
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* PENUTUP ATAS SAMPUL (FLAP SEGI TIGA) */
+.envel-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 190px solid transparent;
+    border-right: 190px solid transparent;
+    border-top: 150px solid #dcd1be; 
+    transform-origin: top !important;
+    transform: rotateX(0deg) !important; 
+    
+    /* 🛠️ DIBAIKI: Letak di z-index: 4 supaya ia menutup bahagian atas kad putih */
+    z-index: 4 !important; 
+    transition: transform 0.6s ease-in-out;
+}
+/* Lebar responsif telefon */
+@media (max-width: 420px) {
+    .envel-flap {
+        border-left: 45vw solid transparent;
+        border-right: 45vw solid transparent;
+        border-top: 35vw solid #dcd1be;
+    }
 }
 
 /* POKET DEPAN SAMPUL (MENUTUP KAD DI DALAM) */
@@ -179,30 +210,29 @@ body {
     clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
     border-radius: 0 0 8px 8px;
     
-    /* 🛠️ DIBAIKI: Ditumpukan pada z-index: 4 supaya ia menjadi LAPISAN PALING DEPAN menutupi kad dan flap */
-    z-index: 4 !important; 
+    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 3 supaya ia tidak menghalang butang di dalam kad putih daripada diklik */
+    z-index: 3 !important; 
+    pointer-events: none !important; /* Melumpuhkan sekatan sentuhan pada poket */
 }
 
 /* =========================================================
-   📍 KOD ANIMASI PEMBUKAAN (DIBAIKI MENGIKUT ID JAVASCRIPT)
+   📍 DIBAIKI: ANIMASI APABILA KELAS .buka-flap AKTIF
    ========================================================= */
 
-/* 1. Penutup Atas Melipat Terbuka Terbalik Ke Atas (Flip Up) */
+/* 1. Penutup Atas Melipat Terbuka Ke Atas (Flip Up) */
 #envelopeContainer.buka-flap .envel-flap {
     transform: rotateX(180deg) !important;
-    
-    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 1 selepas terbuka supaya ia duduk di lapisan paling belakang sekali */
-    z-index: 1 !important; 
+    z-index: 1 !important; /* Turunkan lapisan ke belakang setelah terbuka */
 }
 
-/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas Melepasi Sampul */
+/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas */
 #envelopeContainer.buka-flap .envel-card {
-    /* 🛠️ DIBAIKI: Menggunakan translateY untuk heret kad naik ke atas */
-    transform: translateY(-160px) !important;
-    
-    /* 🛠️ DIBAIKI: Dipaksa naik ke z-index: 5 supaya ia meluncur duduk di lapisan paling depan sekali melampaui poket */
-    z-index: 5 !important; 
+    /* 🛠️ Heret kad naik ke atas dengan lancar melepasi sampul */
+    transform: translateY(-150px) !important;
+    z-index: 6 !important; 
 }
+
+
 /* REKA BENTUK DALAM KAD SAMPUL */
 .envel-subtitle { font-family: 'bohemian', cursive; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: #777; margin: 0; }
 .envel-names { font-family: 'Tulisan Pintu', cursive; font-size: 2.3rem; color: #b39258; margin: 10px 0; }
