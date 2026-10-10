@@ -18,7 +18,9 @@ window.addEventListener('DOMContentLoaded', function() {
             if (laguKahwin) {
                 laguKahwin.play().catch(err => console.log("Muzik disekat browser:", err));
             }
-
+            
+            // 📍 TAMBAH BARIS KOD INI: Paksa bar kaca muncul semula selepas diklik
+            document.querySelector('.nav-menu').style.setProperty('display', 'flex', 'important');
             // Langkah B: Tunggu 1.5 saat (animasi surat selesai), kemudian luncurkan seluruh tirai keluar
             setTimeout(function() {
                 overlayTirai.classList.add('tutup-tirai');
