@@ -538,61 +538,63 @@ textarea {
     box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.05);
 }
 
-/* GAYA KACA LUTSINTAR (GLASSMORPHISM) UNTUK BUTANG NAVIGASI BAWAH */
+/* 📍 GAYA ASAS NAVIGASI BAWAH */
 .nav-item {
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem; /* Besarkan sedikit tulisan teks butang */
     font-weight: 600;
     box-sizing: border-box;
     transition: all 0.3s ease;
     font-family: 'bohemian', cursive;
     
+    /* Kesan Kaca (Glassmorphism) */
     backdrop-filter: blur(8px); 
     -webkit-backdrop-filter: blur(8px); 
-    
     border: 1px solid rgba(255, 255, 255, 0.4); 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
-/* GAYA ASAS BUTANG: Menyusun logo dan teks sebaris */
+/* 📍 GAYA ASAS BUTANG: Memaksa ikon dan teks sentiasa sebaris & seimbang */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* Jarak antara ikon imej dengan teks */
-    padding: 10px 20px;
-    border-radius: 20px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px; /* Jarak yang selesa antara logo dan tulisan */
+    padding: 12px 24px; /* Lebarkan ruang butang supaya teks tidak melompat jatuh */
+    border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
+    white-space: nowrap; /* Menghalang teks daripada terputus ke bawah */
 }
 
-/* MENGAWAL SAIZ LOGO TERBENAM SUPAYA SEIMBANG DENGAN TEKS */
+/* 📍 MEMBESARKAN LOGO (WAZE, MAPS, WHATSAPP) SUPAYA JELAS & CANTIK */
 .btn-icon {
-    width: 18px !important;  
-    height: 18px !important;
+    width: 24px !important;   /* Dinaikkan dari 18px ke 24px supaya lebih besar & jelas */
+    height: 24px !important;
     object-fit: contain;
     display: inline-block;
+    flex-shrink: 0; /* Menghalang gambar daripada mengecil secara paksa */
 }
 
-/* WARNA LAPISAN KACA BUTANG */
+/* 📍 WARNA LAPISAN KACA KAD NAVIGASI */
 .waze-color { 
-    background-color: rgba(227, 242, 253, 0.6) !important; 
+    background-color: rgba(227, 242, 253, 0.7) !important; 
     color: #0d47a1 !important; 
 }
 .google-color { 
-    background-color: rgba(232, 245, 233, 0.6) !important; 
+    background-color: rgba(232, 245, 233, 0.7) !important; 
     color: #1b5e20 !important; 
 }
 .whatsapp-color { 
-    background-color: rgba(139, 250, 149, 0.6) !important; 
+    background-color: rgba(139, 250, 149, 0.7) !important; 
     color: #2e7d32 !important; 
 }
 
-/* HOVER EFFECT */
+/* Kesan Sentuhan (Hover) */
 .nav-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.85) !important; 
+    background-color: rgba(255, 255, 255, 0.9) !important; 
 }
 
 /* Mengawal susunan ikon dan teks di dalam butang hijau penuh pop-up */
