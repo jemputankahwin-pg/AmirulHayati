@@ -104,15 +104,20 @@ body {
     justify-content: center;
 }
 
+/* =========================================================
+   📍 POSISI STRUKTUR SAMPUL SURAT (KEADAAN ASAL TERTUTUP RAPAT)
+   ========================================================= */
+
 /* KOTAK SAMPUL SURAT (ASAS) */
 .envel-box {
     position: relative;
     width: 90%;
     height: 300px;
-    background-color: #eae2d5; /* Warna badan sampul */
+    background-color: #eae2d5; 
     border-radius: 0 0 8px 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     align-self: flex-end;
+    transform-style: preserve-3d; /* Wajib ada untuk membolehkan putaran 3D berfungsi */
 }
 
 /* PENUTUP ATAS SAMPUL (FLAP SEGI TIGA) */
@@ -124,10 +129,15 @@ body {
     height: 0;
     border-left: 190px solid transparent;
     border-right: 190px solid transparent;
-    border-top: 150px solid #dcd1be; /* Warna penutup atas */
-    transform-origin: top;
-    transition: transform 0.6s ease;
-    z-index: 3;
+    border-top: 150px solid #dcd1be; 
+    
+    /* 🛠️ DIBAIKI: Tukar paksi putaran ke atas (0deg) dan kunci engsel di garisan atas */
+    transform-origin: top !important;
+    transform: rotateX(0deg) !important; 
+    
+    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 3 supaya ia berada di BAWAH poket depan semasa melipat ke bawah */
+    z-index: 3 !important; 
+    transition: transform 0.6s ease-in-out, z-index 0.2s ease;
 }
 /* Lebar responsif untuk telefon pintar */
 @media (max-width: 420px) {
@@ -138,24 +148,11 @@ body {
     }
 }
 
-/* POKET DEPAN SAMPUL (MENUTUP KAD DI DALAM) */
-.envel-pocket {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #eae2d5;
-    /* Teknik potongan klip untuk efek lipatan poket depan */
-    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
-    border-radius: 0 0 8px 8px;
-    z-index: 4;
-}
-
 /* KAD JEMPUTAN DI DALAM SAMPUL */
 .envel-card {
     position: absolute;
-    bottom: 10px;
+    /* 🛠️ DIBAIKI: Diturunkan ke top: 30px supaya kad putih tenggelam sepenuhnya di dalam sampul */
+    top: 30px !important; 
     left: 5%;
     width: 90%;
     height: 280px;
@@ -165,10 +162,47 @@ body {
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    
+    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 2 supaya tersembunyi sepenuhnya di belakang penutup dan poket */
+    z-index: 2 !important; 
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 2; /* Berada di belakang poket dan penutup */
 }
 
+/* POKET DEPAN SAMPUL (MENUTUP KAD DI DALAM) */
+.envel-pocket {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eae2d5;
+    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
+    border-radius: 0 0 8px 8px;
+    
+    /* 🛠️ DIBAIKI: Ditumpukan pada z-index: 4 supaya ia menjadi LAPISAN PALING DEPAN menutupi kad dan flap */
+    z-index: 4 !important; 
+}
+
+/* =========================================================
+   📍 KOD ANIMASI PEMBUKAAN (DIBAIKI MENGIKUT ID JAVASCRIPT)
+   ========================================================= */
+
+/* 1. Penutup Atas Melipat Terbuka Terbalik Ke Atas (Flip Up) */
+#envelopeContainer.buka-flap .envel-flap {
+    transform: rotateX(180deg) !important;
+    
+    /* 🛠️ DIBAIKI: Diturunkan ke z-index: 1 selepas terbuka supaya ia duduk di lapisan paling belakang sekali */
+    z-index: 1 !important; 
+}
+
+/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas Melepasi Sampul */
+#envelopeContainer.buka-flap .envel-card {
+    /* 🛠️ DIBAIKI: Menggunakan translateY untuk heret kad naik ke atas */
+    transform: translateY(-160px) !important;
+    
+    /* 🛠️ DIBAIKI: Dipaksa naik ke z-index: 5 supaya ia meluncur duduk di lapisan paling depan sekali melampaui poket */
+    z-index: 5 !important; 
+}
 /* REKA BENTUK DALAM KAD SAMPUL */
 .envel-subtitle { font-family: 'bohemian', cursive; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: #777; margin: 0; }
 .envel-names { font-family: 'Tulisan Pintu', cursive; font-size: 2.3rem; color: #b39258; margin: 10px 0; }
