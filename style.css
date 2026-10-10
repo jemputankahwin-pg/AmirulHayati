@@ -547,38 +547,34 @@ textarea {
     transition: all 0.3s ease;
     font-family: 'bohemian', cursive;
     
-    /* 📍 KOD KUNCI KACA: Membuatkan latar belakang kabur separa lutsinar */
     backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px); /* Sokongan ekstra untuk Safari/iOS */
+    -webkit-backdrop-filter: blur(8px); 
     
-    /* Garisan bingkai halus seperti kilauan bucu kaca */
     border: 1px solid rgba(255, 255, 255, 0.4); 
-    
-    /* Kesan bayang lembut di bawah butang */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
-/* 📍 GAYA ASAS BUTANG: Memastikan logo imej dan teks tersusun sebaris */
+/* GAYA ASAS BUTANG: Menyusun logo dan teks sebaris */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Jarak antara logo imej dengan teks */
+    gap: 8px; /* Jarak antara ikon imej dengan teks */
     padding: 10px 20px;
     border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
 }
 
-/* 📍 MENGAWAL SAIZ LOGO (WAZE, MAPS, WHATSAPP) SUPAYA TIDAK PECAH/BESAR */
+/* MENGAWAL SAIZ LOGO TERBENAM SUPAYA SEIMBANG DENGAN TEKS */
 .btn-icon {
-    width: 18px;          /* Mengecilkan saiz logo imej supaya seimbang dengan teks */
-    height: 18px;
-    object-fit: contain;  /* Memastikan bentuk logo tidak herot */
+    width: 18px !important;  
+    height: 18px !important;
+    object-fit: contain;
     display: inline-block;
 }
 
-/* 📍 KEMASKINI WARNA LAPISAN KACA MENGIKUT JENIS BUTANG */
+/* WARNA LAPISAN KACA BUTANG */
 .waze-color { 
     background-color: rgba(227, 242, 253, 0.6) !important; 
     color: #0d47a1 !important; 
@@ -592,17 +588,17 @@ textarea {
     color: #2e7d32 !important; 
 }
 
-/* 📍 KESAN APABILA JARI TETAMU MENYENTUH/KLIK BUTANG (HOVER EFFECT) */
+/* HOVER EFFECT */
 .nav-item:hover {
-    transform: translateY(-3px); /* Butang naik sedikit seperti terapung */
+    transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.85) !important; /* Kaca bertukar lebih putih berkilat */
+    background-color: rgba(255, 255, 255, 0.85) !important; 
 }
 
 /* GAYA BUTANG WHATSAPP PENUH (FULL WIDTH) */
 .action-btn.wa-full {
-    width: 100%;                  /* Memaksa butang memenuhi ruang kotak */
-    background-color: #2e7d32;    /* Warna hijau rasmi WhatsApp */
+    width: 100%;                  
+    background-color: #2e7d32;    
     color: white;
     text-decoration: none;
     font-family: 'bohemian', cursive;
@@ -615,7 +611,6 @@ textarea {
     box-sizing: border-box;
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
-
 
 /* 1. OVERLAY GELAP PENUH SKRIN (MENGUNCI KEDUDUKAN LUAR) */
 .popup-modal-overlay {
