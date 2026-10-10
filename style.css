@@ -563,15 +563,23 @@ textarea {
 /* 📍 KEMASKINI WARNA LAPISAN KACA MENGIKUT JENIS BUTANG */
 
 /* Kaca Biru Lembut (Waze) */
-.waze-color { 
-    background-color: rgb(131, 178, 212) !important; 
-    color: #0d47a1 !important; 
+/* Gaya asas butang untuk pastikan ikon dan teks sebaris */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Jarak antara ikon dengan teks */
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-/* Kaca Hijau Lembut (Maps) */
-.google-color { 
-    background-color: rgb(140, 224, 147) !important; 
-    color: #1b5e20 !important; 
+/* Mengawal saiz dan kedudukan ikon (Waze, Maps, WhatsApp) */
+.btn-icon {
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* Kaca Hijau Pekat WhatsApp (Hubungi) */
