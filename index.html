@@ -26,42 +26,44 @@
 <body>
 
 <!-- HALAMAN PINTU MASUK BENTUK SURAT (ENVELOPE GATE) -->
-    <div id="pintuDepan" class="envel-overlay">
-        <div class="envel-wrapper">
-            <!-- Sampul Surat Asas -->
-            <div id="envelopeContainer" class="envel-box">
-                
-                <!-- 1. Penutup Atas Sampul (Segi Tiga Coklat) -->
-                <div class="envel-flap"></div>
-                
-                <!-- 2. Bahagian Poket Depan Sampul -->
-                <div class="envel-pocket"></div>
-                
-                <!-- 3. Kad Jemputan Di Dalam Sampul -->
-                <div class="envel-card">
-                    <p class="envel-subtitle">Walimatulurus</p>
-                    <h2 class="envel-names">Amirul & Hayati</h2>
-                    <div class="envel-guest-zone">
-                        <p>Kepada Jemputan Budiman:</p>
-                        <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
-                    </div>
-                    
-                    <!-- Pemicu Klik Langsung Yang Stabil -->
-                    <button id="btnBukaPintu" class="envel-btn-buka" onclick="
-                        document.getElementById('envelopeContainer').classList.add('buka-flap');
-                        this.style.display = 'none';
-                        var lagu = document.getElementById('bgMusic'); if(lagu){ lagu.play().catch(e=>console.log(e)); }
-                        setTimeout(function() {
-                            document.getElementById('pintuDepan').classList.add('tutup-tirai');
-                            var nav = document.querySelector('.nav-menu'); if(nav){ nav.style.setProperty('display', 'flex', 'important'); }
-                        }, 1800);
-                    ">🔑 Buka Undangan</button>
+<div id="pintuDepan" class="envel-overlay">
+    <div class="envel-wrapper">
+        
+        <!-- Kotak Sampul Surat Asas -->
+        <div id="envelopeContainer" class="envel-box">
+            
+            <!-- 1. Penutup Atas Sampul (Segi Tiga Coklat) -->
+            <div class="envel-flap"></div>
+            
+            <!-- 2. Bahagian Poket Depan Sampul -->
+            <div class="envel-pocket"></div>
+            
+            <!-- 3. Kad Jemputan Di Dalam Sampul (Akan terpotong rapi di dalam secara lalai) -->
+            <div class="envel-card">
+                <p class="envel-subtitle">Walimatulurus</p>
+                <h2 class="envel-names">Amirul & Hayati</h2>
+                <div class="envel-guest-zone">
+                    <p>Kepada Jemputan Budiman:</p>
+                    <h3 id="namaTetamuPintu" class="envel-guest-name">Ahli Keluarga & Rakan Tersayang</h3>
                 </div>
-                
             </div>
-        </div>
-    </div> 
 
+            <!-- 📍 POSISI BARU: Butang diletakkan di luar kad putih (di atas poket depan sampul) supaya ia SAHAJA yang kelihatan di hadapan -->
+            <button id="btnBukaPintu" class="envel-btn-buka trigger-depan" onclick="
+                document.getElementById('envelopeContainer').classList.add('buka-flap');
+                this.style.display = 'none';
+                var lagu = document.getElementById('bgMusic'); if(lagu){ lagu.play().catch(e=>console.log(e)); }
+                setTimeout(function() {
+                    document.getElementById('pintuDepan').classList.add('tutup-tirai');
+                    var nav = document.querySelector('.nav-menu'); if(nav){ nav.style.setProperty('display', 'flex', 'important'); }
+                }, 1800);
+            ">🔑 Buka Undangan</button>
+            
+        </div>
+    </div>
+</div> 
+
+    
     <!-- Kad Utama Latar Belakang -->
     <div class="card-container">
 
@@ -207,7 +209,7 @@
     </div>
 
    <!-- KEMASKINI NAVIGASI BAWAAH ANDA -->
-<div class="nav-container"> <!-- Pastikan butang dibungkus dalam container anda -->
+    <div class="nav-menu"> <!-- Pastikan butang dibungkus dalam container anda -->
         <!-- 1. BUTANG WAZE -->
         <a href="https://ul.waze.com/ul?place=ChIJU5Txlv1B2jERefTqDxgETMw&ll=1.48302120%2C103.93889270&navigate=yes"  class="btn waze-btn">
             <img src="waze.png" alt="Waze" class="btn-icon">
