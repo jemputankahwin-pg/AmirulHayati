@@ -48,16 +48,27 @@
                 </div>
             </div>
 
-            <!-- 📍 POSISI BARU: Butang diletakkan di luar kad putih (di atas poket depan sampul) supaya ia SAHAJA yang kelihatan di hadapan -->
-            <button id="btnBukaPintu" class="envel-btn-buka trigger-depan" onclick="
-                document.getElementById('envelopeContainer').classList.add('buka-flap');
-                this.style.display = 'none';
-                var lagu = document.getElementById('bgMusic'); if(lagu){ lagu.play().catch(e=>console.log(e)); }
-                setTimeout(function() {
-                    document.getElementById('pintuDepan').classList.add('tutup-tirai');
-                    var nav = document.querySelector('.nav-menu'); if(nav){ nav.style.setProperty('display', 'flex', 'important'); }
-                }, 1800);
-            ">🔑 Buka Undangan</button>
+            <!-- 📍 GANTI BUTANG DI FAIL INDEX.HTML ANDA DENGAN KOD KALIS BOCOR INI -->
+<button id="btnBukaPintu" class="envel-btn-buka trigger-depan" onclick="
+    /* 1. Paksa kad putih muncul serta-merta pada saat butang diklik */
+    var kadPutih = document.querySelector('.envel-card');
+    if(kadPutih){ kadPutih.style.setProperty('display', 'block', 'important'); }
+    
+    /* 2. Jalankan animasi lipat flap dan heret kad naik ke atas */
+    setTimeout(function() {
+        document.getElementById('envelopeContainer').classList.add('buka-flap');
+    }, 50);
+    
+    /* 3. Sembunyikan butang buka dan aktifkan muzik */
+    this.style.display = 'none';
+    var lagu = document.getElementById('bgMusic'); if(lagu){ lagu.play().catch(e=>console.log(e)); }
+    
+    /* 4. Luncurkan tirai keluar untuk masuk ke halaman kandungan utama */
+    setTimeout(function() {
+        document.getElementById('pintuDepan').classList.add('tutup-tirai');
+        var nav = document.querySelector('.nav-menu'); if(nav){ nav.style.setProperty('display', 'flex', 'important'); }
+    }, 1900);
+">🔑 Buka Undangan</button>
             
         </div>
     </div>
