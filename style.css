@@ -538,77 +538,80 @@ textarea {
     box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.05);
 }
 
-/* CONTAINER UTAMA: Menyusun butang melintang (horizontal) */
+/* 📍 POSISI UTAMA: Mengunci kedudukan butang di bahagian bawah skrin (Fixed Bottom) */
 .nav-container {
+    position: fixed !important;
+    bottom: 20px !important;    /* Menolak butang duduk di bawah skrin, bukan di atas */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Memastikan kedudukan butang betul-betul di tengah skrin */
     display: flex !important;
-    flex-direction: row !important; /* Paksa butang tersusun melintang, bukan menegak */
+    flex-direction: row !important; /* Menyusun butang melintang */
     justify-content: center !important;
     align-items: center !important;
-    gap: 15px; /* Jarak antara butang */
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
+    gap: 12px !important;       /* Jarak antara setiap butang */
+    width: 90% !important;      /* Lebar kawasan butang mengikut skrin telefon */
+    max-width: 400px !important;
+    z-index: 9999 !important;   /* Memaksa butang sentiasa duduk di lapisan paling atas kad */
+    box-sizing: border-box !important;
 }
 
-/* GAYA ASAS BUTANG KACA (Luas & Melintang) */
+/* 📍 REKA BENTUK BUTANG KACA (GLASSMORPHISM) */
 .btn.nav-item {
     display: inline-flex !important;
-    flex-direction: row !important; /* Logo kiri, teks kanan */
+    flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 10px;
-    
-    /* Lebar dan tinggi butang diperluaskan */
-    padding: 12px 28px !important; 
-    min-width: 110px !important; /* Paksa butang melebar */
-    border-radius: 30px !important;
+    gap: 8px !important;
+    padding: 12px 20px !important; /* Ruang dalam butang supaya nampak luas */
+    border-radius: 25px !important;
     text-decoration: none !important;
+    flex: 1 !important;            /* Membahagi lebar butang secara sama rata */
     
-    /* Efek Kaca */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    /* Kesan Tulen Kaca Kabur */
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
 }
 
-/* 📍 MEMBESARKAN LOGO SECARA AGRESIF (35 PIKSEL) */
+/* 📍 MEMBESARKAN LOGO RASMI (30 PIKSEL - JELAS & PREMIUM) */
 .btn-icon {
-    width: 35px !important;   /* Dinaikkan ke 35px supaya nampak besar & puas hati */
-    height: 35px !important;
+    width: 30px !important;       /* Saiz yang besar dan sangat jelas pada skrin */
+    height: 30px !important;
     object-fit: contain !important;
     display: inline-block !important;
     flex-shrink: 0 !important;
 }
 
-/* GAYA TEKS DI SEBELAH LOGO */
+/* GAYA TULISAN TEKS DI SEBELAH LOGO */
 .btn-text {
-    font-size: 0.95rem !important;
+    font-size: 0.9rem !important;
     font-weight: bold !important;
     font-family: 'bohemian', cursive;
     white-space: nowrap !important;
 }
 
-/* WARNA LATAR BELAKANG KACA BUTANG */
+/* WARNA SEBATI LAPISAN KACA */
 .waze-color { 
-    background-color: rgba(227, 242, 253, 0.8) !important; 
+    background-color: rgba(227, 242, 253, 0.85) !important; 
     color: #0d47a1 !important; 
 }
 .google-color { 
-    background-color: rgba(232, 245, 233, 0.8) !important; 
+    background-color: rgba(232, 245, 233, 0.85) !important; 
     color: #1b5e20 !important; 
 }
 .whatsapp-color { 
-    background-color: rgba(139, 250, 149, 0.8) !important; 
-    color: #2e7d32 !important; 
+    background-color: rgba(200, 247, 204, 0.85) !important; 
+    color: #1b5e20 !important; 
 }
 
-/* KESAN SENTUHAN (HOVER) */
+/* KESAN Terapung SEMASA DIKLIK/DILALUI JARI */
 .btn.nav-item:hover {
     transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
     background-color: rgba(255, 255, 255, 0.95) !important;
 }
-
 
 /* Mengawal susunan ikon dan teks di dalam butang hijau penuh pop-up */
 .action-btn.wa-full {
