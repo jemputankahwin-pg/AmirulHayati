@@ -555,24 +555,44 @@ textarea {
     box-sizing: border-box !important;
 }
 
-/* 📍 REKA BENTUK BUTANG KACA (GLASSMORPHISM) */
+/* 📍 REKA BENTUK BUTANG KACA (GLASSMORPHISM) - VERSI DIBAIKI */
 .btn.nav-item {
     display: inline-flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    padding: 12px 20px !important; /* Ruang dalam butang supaya nampak luas */
-    border-radius: 25px !important;
-    text-decoration: none !important;
-    flex: 1 !important;            /* Membahagi lebar butang secara sama rata */
     
-    /* Kesan Tulen Kaca Kabur */
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    /* 🛠️ PEMBETULAN: Menambah ruang padding yang mencukupi untuk memunculkan kotak kaca */
+    padding: 10px 16px !important; 
+    height: auto !important;         /* Memaksa butang mengikut saiz imej secara automatik */
+    min-height: 50px !important;     /* Memberikan ketinggian minimum kotak kaca yang ideal */
+    border-radius: 30px !important;  /* Membuat bucu butang membulat cantik */
+    text-decoration: none !important;
+    flex: 1 !important;              /* Membahagi lebar butang secara rata */
+    overflow: visible !important;    /* Menghalang teks dan kotak daripada terpotong */
+    
+    /* Kesan Tulen Kaca Kabur Separa Lutsinar */
+    background-color: rgba(255, 255, 255, 0.5) !important; /* Menambah kejelasan warna dasar kaca */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.6) !important; /* Bingkai putih berkilat seperti kaca */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1) !important;  /* Bayang lembut untuk efek terapung */
     transition: all 0.3s ease !important;
+}
+
+/* 📍 KEMASKINI WARNA LAPISAN KACA BUTANG */
+.waze-color { 
+    background-color: rgba(227, 242, 253, 0.55) !important; 
+    color: #0d47a1 !important; 
+}
+.google-color { 
+    background-color: rgba(232, 245, 233, 0.55) !important; 
+    color: #1b5e20 !important; 
+}
+.whatsapp-color { 
+    background-color: rgba(200, 247, 204, 0.55) !important; 
+    color: #1b5e20 !important; 
 }
 
 /* 📍 MEMBESARKAN LOGO RASMI (30 PIKSEL - JELAS & PREMIUM) */
