@@ -163,6 +163,10 @@ body {
     z-index: 3 !important;
 }
 
+/* =========================================================
+   📍 DIBAIKI MUTLAK: MENYEMBUNYIKAN KAD PUTIH (100% KALIS BOCOR)
+   ========================================================= */
+
 /* KAD JEMPUTAN PUTIH DI DALAM SAMPUL */
 .envel-card {
     position: absolute !important;
@@ -176,14 +180,16 @@ body {
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    z-index: 2 !important;          
     
-    /* 🛠️ KOD KUNCI MUTLAK: Padam dan sembunyikan terus kad putih daripada wujud pada skrin permulaan */
-    display: none !important; 
+    /* 🛠️ KOD KUNCI UTAMA: Memaksa kad putih menjadi lutsinar penuh & halimunan pada awal loading */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important; /* Menghalang kad daripada mengganggu fungsi sentuhan butang */
     
-    /* Kedudukan asal di dalam sampul bersiap sedia untuk meluncur naik */
-    transform: translateY(30px) !important; 
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    /* Kedudukan asal ditolak ke bawah sedikit di dalam sampul */
+    transform: translateY(40px) !important; 
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0.4s ease !important;
+    z-index: 2 !important;
 }
 
 /* 📍 KOD KUNCI: KEDUDUKAN BUTANG TENGAH (MENGUNCI POSISI DI HADAPAN SAMPUL) */
@@ -217,15 +223,24 @@ body {
 .envel-guest-zone { font-family: 'bohemian', cursive; font-size: 0.8rem; color: #555; margin-bottom: 15px; }
 .envel-guest-name { font-family: 'Bohemian', cursive; font-size: 1.05rem; font-weight: 600; color: #222; margin: 5px 0 0 0; }
 
+/* =========================================================
+   📍 ANIMASI MELUNCUR KELUAR (SELEPAS BUTANG DIKLIK)
+   ========================================================= */
+
 /* Penutup Flap Segi Tiga Melipat Terbuka Ke Atas */
 .envel-box.buka-flap .envel-flap {
     transform: rotateX(180deg) !important;
     z-index: 1 !important;
 }
 
-/* Kad putih melonjak meluncur keluar dari dalam sampul ke atas skrin selepas diaktifkan display: block */
+/* 🛠️ KOD KUNCI PEMUNCULAN: Kad putih melonjak meluncur keluar & bertukar menjadi putih padat padu */
 .envel-box.buka-flap .envel-card {
-    /* Menggunakan nilai negatif untuk menarik kad keluar melepasi sampul coklat */
+    /* 1. Mengembalikan semula kejelasan fizikal visual kad putih */
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    
+    /* 2. Heret kad meluncur naik ke atas dengan megah melepasi sampul coklat */
     transform: translateY(-150px) !important;
     z-index: 5 !important;
 }
