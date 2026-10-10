@@ -98,50 +98,62 @@ body {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
+/* =========================================================
+   📍 DIBAIKI MUTLAK: MENGECILKAN SAIZ SAMPUL SURAT (KOMPAK)
+   ========================================================= */
+
 .envel-wrapper {
     position: relative !important;
     width: 100% !important;
-    max-width: 420px !important;
-    height: 380px !important;
+    
+    /* 🛠️ DIBAIKI: Mengecilkan lebar maksimum kawasan sampul dari 420px kepada 360px */
+    max-width: 360px !important; 
+    
+    /* 🛠️ DIBAIKI: Mengurangkan tinggi keseluruhan dari 380px kepada 320px */
+    height: 320px !important; 
+    
     display: flex !important;
     justify-content: center !important;
 }
 
-/* KOTAK UTAMA SAMPUL SURAT */
+/* KOTAK BADAN SAMPUL SURAT (ASAS) */
 .envel-box {
     position: relative !important;
     width: 90% !important;
-    height: 300px !important;
+    
+    /* 🛠️ DIBAIKI: Mengurangkan tinggi poket sampul dari 300px kepada 240px */
+    height: 240px !important; 
+    
     background-color: #eae2d5 !important;
     border-radius: 0 0 8px 8px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
     align-self: flex-end !important;
-    
-    /* 🛠️ KOD KUNCI UTAMA: Memotong semua warna putih kad dari terkeluar pada permulaan halaman */
-    overflow: hidden !important; 
-    transition: overflow 0.1s ease 0.4s; /* Membuka semula sekatan potongan tepat pada saat animasi meluncur bermula */
+    overflow: hidden !important;
+    transition: overflow 0.1s ease 0.4s;
 }
-
-/* Apabila diklik, benarkan kad putih meluncur melepasi garisan atas sampul tanpa terpotong lagi */
 .envel-box.buka-flap {
     overflow: visible !important;
 }
 
-/* PENUTUP FLAP SEGI TIGA COKLAT */
+/* 📍 DIBAIKI: PENUTUP FLAP SEGI TIGA (DISURUS KAN DENGAN LEBAR BARU) */
 .envel-flap {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     width: 0 !important;
     height: 0 !important;
-    border-left: 190px solid transparent !important;
-    border-right: 190px solid transparent !important;
-    border-top: 150px solid #dcd1be !important;
+    
+    /* 🛠️ DIBAIKI: Kelebaran sempadan border dikecilkan sepadan dengan saiz 360px */
+    border-left: 162px solid transparent !important;
+    border-right: 162px solid transparent !important;
+    border-top: 125px solid #dcd1be !important; 
+    
     transform-origin: top !important;
     transform: rotateX(0deg) !important;
-    z-index: 4 !important; /* Di bawah butang pemicu depan, tetapi menutupi kad putih */
+    z-index: 4 !important;
     transition: transform 0.6s ease-in-out !important;
 }
+/* Lebar responsif untuk telefon pintar bersaiz kecil */
 @media (max-width: 420px) {
     .envel-flap {
         border-left: 45vw solid transparent !important;
@@ -149,7 +161,6 @@ body {
         border-top: 35vw solid #dcd1be !important;
     }
 }
-
 /* POKET DEPAN SAMPUL */
 .envel-pocket {
     position: absolute !important;
@@ -167,26 +178,25 @@ body {
    📍 DIBAIKI MUTLAK: MENYEMBUNYIKAN KAD PUTIH (100% KALIS BOCOR)
    ========================================================= */
 
-/* KAD JEMPUTAN PUTIH DI DALAM SAMPUL */
+/* KAD JEMPUTAN PUTIH DI DALAM (DIKECILKAN KETINGGIAN) */
 .envel-card {
     position: absolute !important;
-    top: 0 !important;             
+    top: 20px !important;             
     left: 5% !important;
     width: 90% !important;
-    height: 250px !important;       
+    
+    /* 🛠️ DIBAIKI: Ketinggian kad putih dikurangkan dari 250px kepada 210px supaya muat dalam sampul kecil */
+    height: 210px !important;       
+    
     background-color: #ffffff !important;
     border-radius: 8px !important;
-    padding: 20px !important;
+    padding: 15px !important; /* Kurangkan sedikit padding ruang dalaman */
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    
-    /* 🛠️ KOD KUNCI UTAMA: Memaksa kad putih menjadi lutsinar penuh & halimunan pada awal loading */
     opacity: 0 !important;
     visibility: hidden !important;
-    pointer-events: none !important; /* Menghalang kad daripada mengganggu fungsi sentuhan butang */
-    
-    /* Kedudukan asal ditolak ke bawah sedikit di dalam sampul */
+    pointer-events: none !important;
     transform: translateY(40px) !important; 
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0.4s ease !important;
     z-index: 2 !important;
@@ -227,22 +237,19 @@ body {
    📍 ANIMASI MELUNCUR KELUAR (SELEPAS BUTANG DIKLIK)
    ========================================================= */
 
-/* Penutup Flap Segi Tiga Melipat Terbuka Ke Atas */
+
+/* ANIMASI MELUNCUR KELUAR APABILA DIKLIK */
 .envel-box.buka-flap .envel-flap {
     transform: rotateX(180deg) !important;
     z-index: 1 !important;
 }
-
-/* 🛠️ KOD KUNCI PEMUNCULAN: Kad putih melonjak meluncur keluar & bertukar menjadi putih padat padu */
 .envel-box.buka-flap .envel-card {
-    /* 1. Mengembalikan semula kejelasan fizikal visual kad putih */
+    /* 🛠️ DIBAIKI: Jarak lonjakan kad dikurangkan kepada -130px mengikut kecomelan sampul baru */
+    transform: translateY(-130px) !important;
+    z-index: 5 !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    
-    /* 2. Heret kad meluncur naik ke atas dengan megah melepasi sampul coklat */
-    transform: translateY(-150px) !important;
-    z-index: 5 !important;
 }
 
 .envel-overlay.tutup-tirai {
