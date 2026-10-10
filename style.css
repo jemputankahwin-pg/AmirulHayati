@@ -187,22 +187,45 @@ body {
 }
 
 /* =========================================================
-   ANIMASI PEMBUKAAN (DIKUNCI OLEH KELAS JAVASCRIPT AKTIF)
+   📍 DIBAIKI: KEDUDUKAN ASAL KAD DI DALAM SAMPUL (TERTUTUP RAPAT)
+   ========================================================= */
+.envel-card {
+    position: absolute;
+    /* 🛠️ TUKAR DARI bottom:10px KEPADA top:20px SUPAYA KAD TENGGELAM SEPENUHNYA */
+    top: 20px !important; 
+    left: 5%;
+    width: 90%;
+    height: 280px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    
+    /* Menggunakan transition top & transform untuk kelancaran pergerakan */
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), top 0.8s ease-in-out;
+    z-index: 2; /* Berada di belakang poket (z-index: 4) dan penutup (z-index: 3) */
+}
+
+/* =========================================================
+   📍 DIBAIKI: ANIMASI PEMBUKAAN (MENGIKUT ID JAVASCRIPT)
    ========================================================= */
 
-/* 1. Penutup Atas Terbuka Ke Atas (Flip Up) */
-.envel-box.buka-flap .envel-flap {
-    transform: rotateX(180deg);
-    z-index: 1; /* Selepas terbuka, turunkan lapisan ke belakang */
+/* 1. Penutup Atas Melipat Terbuka Ke Atas (Flip Up) */
+#envelopeContainer.buka-flap .envel-flap {
+    transform: rotateX(180deg) !important;
+    z-index: 1 !important; /* Selepas terbuka, turunkan lapisan ke belakang */
 }
 
-/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas */
-.envel-box.buka-flap .envel-card {
-    transform: translateY(-120px);
-    z-index: 5; /* Naik ke lapisan paling atas sekali melepas lipatan */
+/* 2. Kad Meluncur Keluar Dari Poket Naik Ke Atas Mengatasi Segitiga */
+#envelopeContainer.buka-flap .envel-card {
+    /* 🛠️ Menolak kad naik ke atas melepasi ketinggian folder sampul */
+    transform: translateY(-150px) !important;
+    z-index: 5 !important; /* Naik ke lapisan paling atas sekali */
 }
 
-/* 3. Seluruh Tirai Latar Belakang Hilang */
+/* 3. Seluruh Tirai Latar Belakang Hilang (Kekal Sama) */
 .envel-overlay.tutup-tirai {
     transform: translateY(-100vh);
     opacity: 0;
