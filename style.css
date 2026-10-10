@@ -107,6 +107,7 @@ body {
     justify-content: center !important;
 }
 
+/* KOTAK UTAMA SAMPUL SURAT */
 .envel-box {
     position: relative !important;
     width: 90% !important;
@@ -115,9 +116,18 @@ body {
     border-radius: 0 0 8px 8px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
     align-self: flex-end !important;
+    
+    /* 🛠️ KOD KUNCI UTAMA: Memotong semua warna putih kad dari terkeluar pada permulaan halaman */
+    overflow: hidden !important; 
+    transition: overflow 0.1s ease 0.4s; /* Membuka semula sekatan potongan tepat pada saat animasi meluncur bermula */
 }
 
-/* Penutup Flap Segi Tiga Coklat */
+/* Apabila diklik, benarkan kad putih meluncur melepasi garisan atas sampul tanpa terpotong lagi */
+.envel-box.buka-flap {
+    overflow: visible !important;
+}
+
+/* PENUTUP FLAP SEGI TIGA COKLAT */
 .envel-flap {
     position: absolute !important;
     top: 0 !important;
@@ -129,7 +139,7 @@ body {
     border-top: 150px solid #dcd1be !important;
     transform-origin: top !important;
     transform: rotateX(0deg) !important;
-    z-index: 5 !important; /* Diletakkan tinggi secara lalai untuk menutup kad di bawahnya */
+    z-index: 4 !important; /* Di bawah butang pemicu depan, tetapi menutupi kad putih */
     transition: transform 0.6s ease-in-out !important;
 }
 @media (max-width: 420px) {
@@ -140,7 +150,7 @@ body {
     }
 }
 
-/* Poket Depan Sampul */
+/* POKET DEPAN SAMPUL */
 .envel-pocket {
     position: absolute !important;
     top: 0 !important;
@@ -150,57 +160,68 @@ body {
     background-color: #eae2d5 !important;
     clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%) !important;
     border-radius: 0 0 8px 8px !important;
-    z-index: 4 !important; /* Di bawah flap segitiga, tetapi di atas kad */
+    z-index: 3 !important;
 }
 
-/* Kad Putih Di Dalam Sampul (Ditumpuk Tenggelam Sepenuhnya) */
+/* KAD JEMPUTAN PUTIH DI DALAM SAMPUL */
 .envel-card {
     position: absolute !important;
-    top: 45px !important; /* 📍 DIBAIKI: Diturunkan ke 45px supaya tenggelam sepenuhnya & tertutup rapat! */
+    top: 35px !important; /* Diturunkan ke dalam sampul */
     left: 5% !important;
     width: 90% !important;
-    height: 250px !important; /* Dikecilkan ketinggian untuk mengelakkan tersedak terkeluar */
+    height: 260px !important;
     background-color: #ffffff !important;
     border-radius: 8px !important;
     padding: 20px !important;
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    z-index: 2 !important; /* Disorokkan di lapisan paling belakang sekali */
-    transition: transform 0.8s ease-in-out !important;
+    z-index: 2 !important; /* Disorokkan paling bawah di belakang poket dan segitiga */
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
+/* 📍 KOD KUNCI: BUTANG TERAPUNG DI DEPAN SAMPUL (KALIS SEKATAN KLIK) */
+.envel-btn-buka.trigger-depan {
+    position: absolute !important;
+    bottom: 35px !important; /* Diletakkan tepat di atas permukaan poket depan sampul coklat */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: #b39258 !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    border-radius: 20px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    
+    /* Mengunci kedudukan di lapisan teratas sekali supaya hanya butang ini yang boleh dilihat dan ditekan */
+    z-index: 9999 !important; 
+    pointer-events: auto !important;
+}
+
+/* GAYA REKA BENTUK DALAM KAD SAMPUL */
 .envel-subtitle { font-family: 'bohemian', cursive; text-transform: uppercase; font-size: 0.75rem; color: #777; margin: 0; }
 .envel-names { font-family: 'Tulisan Pintu', cursive; font-size: 2.3rem; color: #b39258; margin: 10px 0; }
 .envel-guest-zone { font-family: 'bohemian', cursive; font-size: 0.8rem; color: #555; margin-bottom: 15px; }
 .envel-guest-name { font-family: 'Bohemian', cursive; font-size: 1.05rem; font-weight: 600; color: #222; margin: 5px 0 0 0; }
 
-.envel-btn-buka {
-    background-color: #b39258 !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    border-radius: 20px !important;
-    cursor: pointer !important;
-}
-
-/* ANIMASI PEMBUKAAN ELEMEN GATE */
+/* ANIMASI APABILA KELAS AKTIF JAVASCRIPT DIKUTIK */
 .envel-box.buka-flap .envel-flap {
     transform: rotateX(180deg) !important;
-    z-index: 1 !important; /* Pusing naik ke atas, tolak z-index ke belakang */
+    z-index: 1 !important;
 }
 .envel-box.buka-flap .envel-card {
-    transform: translateY(-150px) !important;
-    z-index: 6 !important; /* Melonjak keluar naik ke lapisan paling hadapan sekali */
+    /* Menolak kad putih naik meluncur keluar dengan penuh selepas sampul terbuka */
+    transform: translateY(-160px) !important;
+    z-index: 5 !important;
 }
 .envel-overlay.tutup-tirai {
     transform: translateY(-100vh) !important;
     opacity: 0 !important;
     pointer-events: none !important;
 }
-
 
 /* Sorokkan atau kecilkan hiasan pada skrin telefon pintar yang sempit supaya tidak semak */
 @media (max-width: 768px) {
@@ -530,16 +551,16 @@ textarea {
     box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.05);
 }
 
-/* 📍 POSISI UTAMA: Mengunci kedudukan butang di bahagian bawah skrin (Fixed Bottom) */
-.nav-container {
+/* =========================================================
+   📍 BAHAGIAN B: BAR NAVIGASI KACA (MAIN CONTENT LINKS REBORN)
+   ========================================================= */
+
+.nav-menu {
     position: fixed !important;
     bottom: 20px !important;       
     left: 50% !important;
     transform: translateX(-50%) !important;
-    
-    /* 📍 TUKAR KOD INI: Sembunyikan secara lalai pada mulanya */
-    display: none !important; 
-    
+    display: none !important; /* Disembunyikan secara lalai pada entrance */
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-around !important;
@@ -547,11 +568,11 @@ textarea {
     width: 90% !important;         
     max-width: 420px !important;
     padding: 12px 15px !important; 
-    z-index: 99999 !important;
+    z-index: 99999 !important; /* Ditumpukan paling atas supaya kalis sekat */
     box-sizing: border-box !important;
     
-    /* Efek Kaca */
-    background-color: rgba(255, 255, 255, 0.4) !important; 
+    /* 🛠️ EFEK UTAMA TRANSMISSIVE TRANSPARENT GLASSBAR */
+    background-color: rgba(255, 255, 255, 0.45) !important; 
     backdrop-filter: blur(15px) !important;                
     -webkit-backdrop-filter: blur(15px) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.5) !important; 
@@ -559,66 +580,44 @@ textarea {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08) !important; 
 }
 
-/* 📍 GAYA BAR NAVIGASI BELAKANG (BAR KACA PANJANG) */
 .nav-item {
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    font-family: 'bohemian', cursive;
-    
-    /* Kekalkan kod kunci kaca asal bar belakang anda */
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px); 
-    border: 1px solid rgba(255, 255, 255, 0.4); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
-    
-    /* 🛠️ PEMBETULAN: Memastikan bar boleh memuatkan logo besar */
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
-    padding: 10px 20px !important;
-    height: auto !important; /* Biar bar mengikut keselesaan saiz logo */
+    gap: 6px !important;
+    text-decoration: none !important;
+    padding: 8px 14px !important;
+    border-radius: 20px !important;
+    transition: all 0.2s ease !important;
 }
 
-/* 📍 MEMBESARKAN LOGO DI DALAM BAR NAVIGASI (Kunci pada 28px) */
+/* 🛠️ KUNCI SAIZ LOGO SEBENAR (28 PIKSEL - MENGGUNAKAN PNG LOCAL ANDA) */
 .btn-icon {
-    width: 28px !important;   /* Besarkan logo waze & maps supaya jelas */
+    width: 28px !important;       
     height: 28px !important;
     object-fit: contain !important;
     display: inline-block !important;
     flex-shrink: 0 !important;
 }
 
-/* 📍 KEMASKINI WARNA LAPISAN UNTUK BUTANG */
-.waze-color { 
-    background-color: rgba(223, 242, 255, 0.5) !important; 
-    color: #0d47a1 !important; 
-}
-.google-color { 
-    background-color: rgba(232, 245, 233, 0.5) !important; 
-    color: #1b5e20 !important; 
+.btn-text {
+    font-size: 0.85rem !important;
+    font-weight: bold !important;
+    font-family: 'bohemian', cursive, sans-serif;
+    white-space: nowrap !important;
 }
 
-/* 📍 BUTANG HUBUNGI WHATSAPP (KOTAK HIJAU) */
+.waze-color { color: #0d47a1 !important; }
+.google-color { color: #1b5e20 !important; }
 .whatsapp-color { 
     background-color: rgb(139, 250, 149) !important; 
     color: #2e7d32 !important; 
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    border-radius: 4px !important;
-    padding: 6px 12px !important;
+}
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
-/* Kesan apabila butang disentuh */
-.nav-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.85) !important; 
-}
+
 /* Mengawal susunan ikon dan teks di dalam butang hijau penuh pop-up */
 .action-btn.wa-full {
     display: inline-flex;
