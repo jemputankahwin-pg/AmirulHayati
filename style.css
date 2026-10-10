@@ -166,7 +166,7 @@ body {
 /* KAD JEMPUTAN PUTIH DI DALAM SAMPUL */
 .envel-card {
     position: absolute !important;
-    top: 0 !important;             /* Kunci pada bucu atas sampul */
+    top: 0 !important;             
     left: 5% !important;
     width: 90% !important;
     height: 250px !important;       
@@ -176,12 +176,13 @@ body {
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    z-index: 2 !important;          /* Berada di belakang penutup dan poket */
+    z-index: 2 !important;          
     
-    /* 🛠️ KOD KUNCI BARU: Memaksa kad putih ditarik turun sebanyak 130px supaya tersembunyi sepenuhnya di dalam sampul! */
-    transform: translateY(130px) !important; 
+    /* 🛠️ KOD KUNCI MUTLAK: Padam dan sembunyikan terus kad putih daripada wujud pada skrin permulaan */
+    display: none !important; 
     
-    /* Menggunakan transition untuk animasi meluncur naik kelak */
+    /* Kedudukan asal di dalam sampul bersiap sedia untuk meluncur naik */
+    transform: translateY(30px) !important; 
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
@@ -222,9 +223,9 @@ body {
     z-index: 1 !important;
 }
 
-/* 🛠️ DIBAIKI: Kad putih melonjak meluncur keluar dari dalam sampul ke atas skrin */
+/* Kad putih melonjak meluncur keluar dari dalam sampul ke atas skrin selepas diaktifkan display: block */
 .envel-box.buka-flap .envel-card {
-    /* Menukar nilai positif (130px) kepada negatif (-150px) untuk heret kad naik meluncur ke atas */
+    /* Menggunakan nilai negatif untuk menarik kad keluar melepasi sampul coklat */
     transform: translateY(-150px) !important;
     z-index: 5 !important;
 }
