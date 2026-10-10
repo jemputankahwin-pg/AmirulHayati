@@ -80,7 +80,10 @@ body {
     text-align: center;
 }
 
-/* CONTAINER UTAMA PENUH SKRIN */
+/* =========================================================
+   📍 BAHAGIAN A: REKA BENTUK PINTU MASUK & SAMPUL SURAT
+   ========================================================= */
+
 .envel-overlay {
     position: fixed !important;
     top: 0 !important;
@@ -104,7 +107,6 @@ body {
     justify-content: center !important;
 }
 
-/* KOTAK SAMPUL SURAT (ASAS) */
 .envel-box {
     position: relative !important;
     width: 90% !important;
@@ -113,10 +115,9 @@ body {
     border-radius: 0 0 8px 8px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
     align-self: flex-end !important;
-    overflow: hidden !important; /* 📍 KUNCI MUTLAK: Memotong dan menyembunyikan terus mana-mana bahagian kad putih yang terkeluar di atas! */
 }
 
-/* PENUTUP ATAS SAMPUL (FLAP SEGI TIGA) */
+/* Penutup Flap Segi Tiga Coklat */
 .envel-flap {
     position: absolute !important;
     top: 0 !important;
@@ -128,8 +129,8 @@ body {
     border-top: 150px solid #dcd1be !important;
     transform-origin: top !important;
     transform: rotateX(0deg) !important;
-    z-index: 4 !important; /* Duduk di atas kad putih untuk melindunginya */
-    transition: transform 0.6s ease !important;
+    z-index: 5 !important; /* Diletakkan tinggi secara lalai untuk menutup kad di bawahnya */
+    transition: transform 0.6s ease-in-out !important;
 }
 @media (max-width: 420px) {
     .envel-flap {
@@ -139,7 +140,7 @@ body {
     }
 }
 
-/* POKET DEPAN SAMPUL (MENUTUP KAD DI DALAM) */
+/* Poket Depan Sampul */
 .envel-pocket {
     position: absolute !important;
     top: 0 !important;
@@ -149,26 +150,25 @@ body {
     background-color: #eae2d5 !important;
     clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%) !important;
     border-radius: 0 0 8px 8px !important;
-    z-index: 3 !important; /* Di belakang flap segitiga, tetapi di depan kad putih */
+    z-index: 4 !important; /* Di bawah flap segitiga, tetapi di atas kad */
 }
 
-/* KAD JEMPUTAN DI DALAM SAMPUL (TERTUTUP RAPAT LALAI) */
+/* Kad Putih Di Dalam Sampul (Ditumpuk Tenggelam Sepenuhnya) */
 .envel-card {
     position: absolute !important;
-    bottom: -5px !important; /* 📍 PENTING: Ditarik rapat rapat menjejak dasar sampul */
+    top: 45px !important; /* 📍 DIBAIKI: Diturunkan ke 45px supaya tenggelam sepenuhnya & tertutup rapat! */
     left: 5% !important;
     width: 90% !important;
-    height: 280px !important;
+    height: 250px !important; /* Dikecilkan ketinggian untuk mengelakkan tersedak terkeluar */
     background-color: #ffffff !important;
     border-radius: 8px !important;
     padding: 20px !important;
     box-sizing: border-box !important;
     text-align: center !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.05) !important;
-    z-index: 2 !important; /* Lapisan paling dalam sekali */
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    z-index: 2 !important; /* Disorokkan di lapisan paling belakang sekali */
+    transition: transform 0.8s ease-in-out !important;
 }
-
 
 /* REKA BENTUK DALAM KAD SAMPUL */
 .envel-subtitle { font-family: 'bohemian', cursive; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: #777; margin: 0; }
