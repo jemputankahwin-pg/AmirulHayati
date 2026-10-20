@@ -704,6 +704,24 @@ textarea {
     display: block !important; 
 }
 
+/* Tetapan butang pangkah (X) berasaskan kotak putih anda */
+.popup-close-btn {
+    position: absolute;  /* Mengunci kedudukan mengikut kotak putih */
+    top: 10px;           /* Jarak 10px dari siling kotak putih */
+    right: 15px;         /* Jarak 15px dari dinding kanan kotak putih */
+    font-size: 26px;     /* Saiz simbol pangkah yang ideal */
+    font-weight: bold;   /* Menebalkan simbol X */
+    color: #888888;      /* Warna kelabu (soft) supaya kelihatan premium */
+    cursor: pointer;     /* Menukar pointer tetikus kepada mod klik */
+    line-height: 1;      /* Mengelakkan ruang kosong di atas/bawah simbol */
+    z-index: 10;         /* Memastikan X berada di lapisan paling atas */
+}
+
+/* Kesan estetik apabila tetikus menyentuh butang X */
+.popup-close-btn:hover {
+    color: #ff3b30;      /* Warna bertukar merah lembut atau hitam (#000) semasa di-hover */
+}
+
 /* KELAS AKTIF UNTUK JAVASCRIPT MEMANGGIL */
 .popup-modal-overlay.popup-aktif {
     display: flex !important; /* Menukar dari none kepada flex hanya apabila diklik */
