@@ -89,16 +89,33 @@ body {
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
+    /* 🛠️ DIBAIKI: Menggunakan 100dvh untuk mengunci ketinggian skrin telefon secara dinamik */
     height: 100vh !important;
+    height: 100dvh !important; 
     background-color: #f5f2eb !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    
+     /* Z-Index super tinggi untuk memastikan tiada text bawah boleh tembus naik */
     z-index: 99999 !important;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-
+    
     /* 🛠️ DIBAIKI KUNCI: Menghalang sebarang isi kandungan dalam (hamzah dll) daripada terkeluar di bawah */
     overflow: hidden !important; 
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* =========================================================
+   📍 DIBAIKI: SEMBUNYIKAN KANDUNGAN UTAMA SEMASA TIRAI DITUTUP
+   ========================================================= */
+/* Tambah kod ini untuk mengawal kelas content utama majlis anda */
+.main-content-wedding {
+    display: none; /* Sembunyikan terus teks Hamzah dll pada asalnya */
+}
+
+/* Aktifkan semula kandungan apabila tirai sudah dibuka */
+body.wedding-opened .main-content-wedding {
+    display: block !important;
 }
 
 /* =========================================================
