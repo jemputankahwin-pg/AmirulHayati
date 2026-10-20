@@ -44,8 +44,6 @@ window.addEventListener('DOMContentLoaded', function() {
         paparanNamaPintu.innerHTML = "Ahli Keluarga & Rakan Tersayang";
     }
 
-});
-
 // 1. KIRAAN DETIK (COUNTDOWN) MAJLIS
 const tarikhMajlis = new Date("Mar 20, 2027 11:00:00").getTime();
 
