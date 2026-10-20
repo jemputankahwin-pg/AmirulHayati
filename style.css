@@ -96,6 +96,9 @@ body {
     align-items: center !important;
     z-index: 99999 !important;
     transition: opacity 0.8s ease, transform 0.8s ease;
+
+    /* 🛠️ DIBAIKI KUNCI: Menghalang sebarang isi kandungan dalam (hamzah dll) daripada terkeluar di bawah */
+    overflow: hidden !important; 
 }
 
 /* =========================================================
