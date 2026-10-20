@@ -190,39 +190,6 @@ if (borangUcapan) {
 }
 
 
-
-
-// 2. PENGENDALI BORANG UCAPAN
-document.getElementById('wishesForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const feedback = document.getElementById('wishFeedback');
-    feedback.style.color = "#333";
-    feedback.innerHTML = "Sedang menghantar ucapan...";
-
-    const dataPayload = {
-        formType: "ucapan",
-        nama: document.getElementById('wishNama').value,
-        ucapan: document.getElementById('wishMesej').value
-    };
-
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dataPayload)
-    })
-    .then(() => {
-        feedback.style.color = "#2e7d32";
-        feedback.innerHTML = "Ucapan dan doa restu anda selamat disimpan! Terima kasih. ❤️";
-        document.getElementById('wishesForm').reset();
-    })
-    .catch(error => {
-        feedback.style.color = "#c62828";
-        feedback.innerHTML = "Gagal menghantar ucapan. Sila cuba lagi.";
-        console.error('Error:', error);
-    });
-});
 // Fungsi untuk memuatkan ucapan dari Google Sheets
 // 📍 KOD PEMBETULAN: MEMUATKAN UCAPAN TANPA DUPLIKASI & BUANG IKON
 function muatTurunUcapan() {
